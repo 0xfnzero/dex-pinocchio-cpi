@@ -1,0 +1,2906 @@
+{
+  "accounts": [
+    {
+      "discriminator": [
+        254,
+        204,
+        207,
+        98,
+        25,
+        181,
+        29,
+        67
+      ],
+      "name": "FusionPool"
+    },
+    {
+      "discriminator": [
+        191,
+        199,
+        19,
+        11,
+        75,
+        86,
+        239,
+        169
+      ],
+      "name": "FusionPoolsConfig"
+    },
+    {
+      "discriminator": [
+        137,
+        183,
+        212,
+        91,
+        115,
+        29,
+        141,
+        227
+      ],
+      "name": "LimitOrder"
+    },
+    {
+      "discriminator": [
+        170,
+        188,
+        143,
+        228,
+        122,
+        64,
+        247,
+        208
+      ],
+      "name": "Position"
+    },
+    {
+      "discriminator": [
+        129,
+        169,
+        175,
+        65,
+        185,
+        95,
+        32,
+        100
+      ],
+      "name": "PositionBundle"
+    },
+    {
+      "discriminator": [
+        69,
+        97,
+        189,
+        190,
+        110,
+        7,
+        66,
+        187
+      ],
+      "name": "TickArray"
+    },
+    {
+      "discriminator": [
+        116,
+        219,
+        204,
+        229,
+        249,
+        116,
+        255,
+        150
+      ],
+      "name": "TokenBadge"
+    }
+  ],
+  "address": "fUSioN9YKKSa3CUC2YUc4tPkHJ5Y6XW1yz8y6F7qWz9",
+  "errors": [
+    {
+      "code": 6000,
+      "msg": "Enum value could not be converted",
+      "name": "InvalidEnum"
+    },
+    {
+      "code": 6001,
+      "msg": "Invalid start tick index provided.",
+      "name": "InvalidStartTick"
+    },
+    {
+      "code": 6002,
+      "msg": "Tick-array already exists in this fusion_pool",
+      "name": "TickArrayExistInPool"
+    },
+    {
+      "code": 6003,
+      "msg": "Attempt to search for a tick-array failed",
+      "name": "TickArrayIndexOutofBounds"
+    },
+    {
+      "code": 6004,
+      "msg": "Tick-spacing is not supported",
+      "name": "InvalidTickSpacing"
+    },
+    {
+      "code": 6005,
+      "msg": "Position is not empty It cannot be closed",
+      "name": "ClosePositionNotEmpty"
+    },
+    {
+      "code": 6006,
+      "msg": "Unable to divide by zero",
+      "name": "DivideByZero"
+    },
+    {
+      "code": 6007,
+      "msg": "Unable to cast number into BigInt",
+      "name": "NumberCastError"
+    },
+    {
+      "code": 6008,
+      "msg": "Unable to down cast number",
+      "name": "NumberDownCastError"
+    },
+    {
+      "code": 6009,
+      "msg": "Tick not found within tick array",
+      "name": "TickNotFound"
+    },
+    {
+      "code": 6010,
+      "msg": "Provided tick index is either out of bounds or uninitializable",
+      "name": "InvalidTickIndex"
+    },
+    {
+      "code": 6011,
+      "msg": "Provided sqrt price out of bounds",
+      "name": "SqrtPriceOutOfBounds"
+    },
+    {
+      "code": 6012,
+      "msg": "Liquidity amount must be greater than zero",
+      "name": "LiquidityZero"
+    },
+    {
+      "code": 6013,
+      "msg": "Liquidity amount must be less than i64::MAX",
+      "name": "LiquidityTooHigh"
+    },
+    {
+      "code": 6014,
+      "msg": "Liquidity overflow",
+      "name": "LiquidityOverflow"
+    },
+    {
+      "code": 6015,
+      "msg": "Liquidity underflow",
+      "name": "LiquidityUnderflow"
+    },
+    {
+      "code": 6016,
+      "msg": "Tick liquidity net underflowed or overflowed",
+      "name": "LiquidityNetError"
+    },
+    {
+      "code": 6017,
+      "msg": "Exceeded token max",
+      "name": "TokenMaxExceeded"
+    },
+    {
+      "code": 6018,
+      "msg": "Did not meet token min",
+      "name": "TokenMinSubceeded"
+    },
+    {
+      "code": 6019,
+      "msg": "Position token account has a missing or invalid delegate",
+      "name": "MissingOrInvalidDelegate"
+    },
+    {
+      "code": 6020,
+      "msg": "Position token amount must be 1",
+      "name": "InvalidPositionTokenAmount"
+    },
+    {
+      "code": 6021,
+      "msg": "Timestamp should be convertible from i64 to u64",
+      "name": "InvalidTimestampConversion"
+    },
+    {
+      "code": 6022,
+      "msg": "Timestamp should be greater than the last updated timestamp",
+      "name": "InvalidTimestamp"
+    },
+    {
+      "code": 6023,
+      "msg": "Invalid tick array sequence provided for instruction.",
+      "name": "InvalidTickArraySequence"
+    },
+    {
+      "code": 6024,
+      "msg": "Token Mint in wrong order",
+      "name": "InvalidTokenMintOrder"
+    },
+    {
+      "code": 6025,
+      "msg": "Position is not empty, range can't be set.",
+      "name": "SetRangeForNonEmptyPosition"
+    },
+    {
+      "code": 6026,
+      "msg": "Unused",
+      "name": "Unused"
+    },
+    {
+      "code": 6027,
+      "msg": "Reward vault requires amount to support emissions for at least one day",
+      "name": "RewardVaultAmountInsufficient"
+    },
+    {
+      "code": 6028,
+      "msg": "Exceeded max fee rate",
+      "name": "FeeRateMaxExceeded"
+    },
+    {
+      "code": 6029,
+      "msg": "Exceeded max protocol fee rate",
+      "name": "ProtocolFeeRateMaxExceeded"
+    },
+    {
+      "code": 6030,
+      "msg": "Multiplication with shift right overflow",
+      "name": "MultiplicationShiftRightOverflow"
+    },
+    {
+      "code": 6031,
+      "msg": "Muldiv overflow",
+      "name": "MulDivOverflow"
+    },
+    {
+      "code": 6032,
+      "msg": "Invalid div_u256 input",
+      "name": "MulDivInvalidInput"
+    },
+    {
+      "code": 6033,
+      "msg": "Multiplication overflow",
+      "name": "MultiplicationOverflow"
+    },
+    {
+      "code": 6034,
+      "msg": "Provided SqrtPriceLimit not in the same direction as the swap.",
+      "name": "InvalidSqrtPriceLimitDirection"
+    },
+    {
+      "code": 6035,
+      "msg": "There are no tradable amount to swap.",
+      "name": "ZeroTradableAmount"
+    },
+    {
+      "code": 6036,
+      "msg": "Amount out below minimum threshold",
+      "name": "AmountOutBelowMinimum"
+    },
+    {
+      "code": 6037,
+      "msg": "Amount in above maximum threshold",
+      "name": "AmountInAboveMaximum"
+    },
+    {
+      "code": 6038,
+      "msg": "Invalid index for tick array sequence",
+      "name": "TickArraySequenceInvalidIndex"
+    },
+    {
+      "code": 6039,
+      "msg": "Amount calculated overflows",
+      "name": "AmountCalcOverflow"
+    },
+    {
+      "code": 6040,
+      "msg": "Amount remaining overflows",
+      "name": "AmountRemainingOverflow"
+    },
+    {
+      "code": 6041,
+      "msg": "Invalid intermediary mint",
+      "name": "InvalidIntermediaryMint"
+    },
+    {
+      "code": 6042,
+      "msg": "Duplicate two hop pool",
+      "name": "DuplicateTwoHopPool"
+    },
+    {
+      "code": 6043,
+      "msg": "Bundle index is out of bounds",
+      "name": "InvalidBundleIndex"
+    },
+    {
+      "code": 6044,
+      "msg": "Position has already been opened",
+      "name": "BundledPositionAlreadyOpened"
+    },
+    {
+      "code": 6045,
+      "msg": "Position has already been closed",
+      "name": "BundledPositionAlreadyClosed"
+    },
+    {
+      "code": 6046,
+      "msg": "Unable to delete PositionBundle with open positions",
+      "name": "PositionBundleNotDeletable"
+    },
+    {
+      "code": 6047,
+      "msg": "Token mint has unsupported attributes",
+      "name": "UnsupportedTokenMint"
+    },
+    {
+      "code": 6048,
+      "msg": "Invalid remaining accounts",
+      "name": "RemainingAccountsInvalidSlice"
+    },
+    {
+      "code": 6049,
+      "msg": "Insufficient remaining accounts",
+      "name": "RemainingAccountsInsufficient"
+    },
+    {
+      "code": 6050,
+      "msg": "Unable to call transfer hook without extra accounts",
+      "name": "NoExtraAccountsForTransferHook"
+    },
+    {
+      "code": 6051,
+      "msg": "Output and input amount mismatch",
+      "name": "IntermediateTokenAmountMismatch"
+    },
+    {
+      "code": 6052,
+      "msg": "Transfer fee calculation failed",
+      "name": "TransferFeeCalculationError"
+    },
+    {
+      "code": 6053,
+      "msg": "Same accounts type is provided more than once",
+      "name": "RemainingAccountsDuplicatedAccountsType"
+    },
+    {
+      "code": 6054,
+      "msg": "This fusion_pool only supports full-range positions",
+      "name": "FullRangeOnlyPool"
+    },
+    {
+      "code": 6055,
+      "msg": "Too many supplemental tick arrays provided",
+      "name": "TooManySupplementalTickArrays"
+    },
+    {
+      "code": 6056,
+      "msg": "TickArray account for different fusion_pool provided",
+      "name": "DifferentFusionPoolTickArrayAccount"
+    },
+    {
+      "code": 6057,
+      "msg": "Trade resulted in partial fill",
+      "name": "PartialFillError"
+    },
+    {
+      "code": 6058,
+      "msg": "The limit order tick index is incorrect relative to the current market tick (taker order)",
+      "name": "TakerOrderNotSupported"
+    },
+    {
+      "code": 6059,
+      "msg": "Exceeded the limit order deposited input amount",
+      "name": "LimitOrderAmountExceeded"
+    },
+    {
+      "code": 6060,
+      "msg": "Limit order is not empty and cannot be closed",
+      "name": "LimitOrderNotEmpty"
+    },
+    {
+      "code": 6061,
+      "msg": "Unable to increase a limit order because it's partially or fully filled",
+      "name": "LimitOrderIsFilled"
+    },
+    {
+      "code": 6062,
+      "msg": "Zero amount",
+      "name": "ZeroAmount"
+    },
+    {
+      "code": 6063,
+      "msg": "Can't reset the price because a pool is not empty",
+      "name": "ResetPriceForNonEmptyPool"
+    }
+  ],
+  "instructions": [
+    {
+      "accounts": [
+        {
+          "name": "bundled_position",
+          "writable": true
+        },
+        {
+          "name": "position_bundle",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_token_account"
+        },
+        {
+          "name": "position_bundle_authority",
+          "signer": true
+        },
+        {
+          "name": "receiver",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "bundle_index",
+          "type": "u16"
+        }
+      ],
+      "discriminator": [
+        41,
+        36,
+        216,
+        245,
+        27,
+        85,
+        103,
+        67
+      ],
+      "docs": [
+        "Close a bundled position in a FusionPool.",
+        "",
+        "### Authority",
+        "- `position_bundle_authority` - authority that owns the token corresponding to this desired position bundle.",
+        "",
+        "### Parameters",
+        "- `bundle_index` - The bundle index that we'd like to close.",
+        "",
+        "#### Special Errors",
+        "- `InvalidBundleIndex` - If the provided bundle index is out of bounds.",
+        "- `ClosePositionNotEmpty` - The provided position account is not empty."
+      ],
+      "name": "close_bundled_position"
+    },
+    {
+      "accounts": [
+        {
+          "name": "limit_order_authority",
+          "signer": true
+        },
+        {
+          "name": "receiver",
+          "writable": true
+        },
+        {
+          "name": "limit_order",
+          "writable": true
+        },
+        {
+          "name": "limit_order_mint",
+          "writable": true
+        },
+        {
+          "name": "limit_order_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_2022_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        76,
+        124,
+        128,
+        15,
+        213,
+        87,
+        37,
+        250
+      ],
+      "docs": [
+        "Close a limit order in a FusionPool. Burns the limit order token in the owner's wallet.",
+        "Mint and TokenAccount are based on Token-2022. And Mint account will be also closed.",
+        "",
+        "### Authority",
+        "- \"limit_order_authority\" - The authority that owns the limit order token.",
+        "",
+        "#### Special Errors",
+        "- `CloseLimitOrderNotEmpty` - The provided limit order account is not empty."
+      ],
+      "name": "close_limit_order"
+    },
+    {
+      "accounts": [
+        {
+          "name": "position_authority",
+          "signer": true
+        },
+        {
+          "name": "receiver",
+          "writable": true
+        },
+        {
+          "name": "position",
+          "writable": true
+        },
+        {
+          "name": "position_mint",
+          "writable": true
+        },
+        {
+          "name": "position_token_account",
+          "writable": true
+        },
+        {
+          "name": "token_2022_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        123,
+        134,
+        81,
+        0,
+        49,
+        68,
+        98,
+        98
+      ],
+      "docs": [
+        "Close a position in a FusionPool. Burns the position token in the owner's wallet.",
+        "Mint and TokenAccount are based on Token-2022. And Mint account will be also closed.",
+        "",
+        "### Authority",
+        "- \"position_authority\" - The authority that owns the position token.",
+        "",
+        "#### Special Errors",
+        "- `ClosePositionNotEmpty` - The provided position account is not empty."
+      ],
+      "name": "close_position"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pool"
+        },
+        {
+          "name": "position_authority",
+          "signer": true
+        },
+        {
+          "name": "position",
+          "writable": true
+        },
+        {
+          "name": "position_token_account"
+        },
+        {
+          "name": "token_mint_a"
+        },
+        {
+          "name": "token_mint_b"
+        },
+        {
+          "name": "token_owner_account_a",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_b",
+          "writable": true
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "token_program_a"
+        },
+        {
+          "name": "token_program_b"
+        },
+        {
+          "name": "memo_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "remaining_accounts_info",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "RemainingAccountsInfo"
+              }
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        164,
+        152,
+        207,
+        99,
+        30,
+        186,
+        19,
+        182
+      ],
+      "docs": [
+        "Collect fees accrued for this position.",
+        "",
+        "### Authority",
+        "- `position_authority` - authority that owns the token corresponding to this desired position."
+      ],
+      "name": "collect_fees"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config"
+        },
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "collect_protocol_fees_authority",
+          "signer": true
+        },
+        {
+          "name": "token_mint_a"
+        },
+        {
+          "name": "token_mint_b"
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "token_destination_a",
+          "writable": true
+        },
+        {
+          "name": "token_destination_b",
+          "writable": true
+        },
+        {
+          "name": "token_program_a"
+        },
+        {
+          "name": "token_program_b"
+        },
+        {
+          "name": "memo_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "remaining_accounts_info",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "RemainingAccountsInfo"
+              }
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        22,
+        67,
+        23,
+        98,
+        150,
+        178,
+        70,
+        220
+      ],
+      "docs": [
+        "Collect the protocol fees accrued in this FusionPool",
+        "",
+        "### Authority",
+        "- `collect_protocol_fees_authority` - assigned authority in the FusionPoolConfig that can collect protocol fees"
+      ],
+      "name": "collect_protocol_fees"
+    },
+    {
+      "accounts": [
+        {
+          "name": "limit_order_authority",
+          "signer": true
+        },
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "limit_order",
+          "writable": true
+        },
+        {
+          "name": "limit_order_token_account"
+        },
+        {
+          "name": "token_mint_a"
+        },
+        {
+          "name": "token_mint_b"
+        },
+        {
+          "name": "token_owner_account_a",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_b",
+          "writable": true
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "tick_array",
+          "writable": true
+        },
+        {
+          "name": "token_program_a"
+        },
+        {
+          "name": "token_program_b"
+        },
+        {
+          "name": "memo_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "remaining_accounts_info",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "RemainingAccountsInfo"
+              }
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        117,
+        157,
+        60,
+        103,
+        66,
+        49,
+        163,
+        0
+      ],
+      "docs": [
+        "Remove tokens from a limit order in the FusionPool.",
+        "",
+        "### Parameters",
+        "- `amount` - The total amount of tokens the user is willing to withdraw."
+      ],
+      "name": "decrease_limit_order"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "token_program_a"
+        },
+        {
+          "name": "token_program_b"
+        },
+        {
+          "name": "memo_program"
+        },
+        {
+          "name": "position_authority",
+          "signer": true
+        },
+        {
+          "name": "position",
+          "writable": true
+        },
+        {
+          "name": "position_token_account"
+        },
+        {
+          "name": "token_mint_a"
+        },
+        {
+          "name": "token_mint_b"
+        },
+        {
+          "name": "token_owner_account_a",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_b",
+          "writable": true
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "tick_array_lower",
+          "writable": true
+        },
+        {
+          "name": "tick_array_upper",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "liquidity_amount",
+          "type": "u128"
+        },
+        {
+          "name": "token_min_a",
+          "type": "u64"
+        },
+        {
+          "name": "token_min_b",
+          "type": "u64"
+        },
+        {
+          "name": "remaining_accounts_info",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "RemainingAccountsInfo"
+              }
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        160,
+        38,
+        208,
+        111,
+        104,
+        91,
+        44,
+        1
+      ],
+      "docs": [
+        "Withdraw liquidity from a position in the FusionPool. This call also updates the position's accrued fees.",
+        "",
+        "### Authority",
+        "- `position_authority` - authority that owns the token corresponding to this desired position.",
+        "",
+        "### Parameters",
+        "- `liquidity_amount` - The total amount of Liquidity the user desires to withdraw.",
+        "- `token_min_a` - The minimum amount of tokenA the user is willing to withdraw.",
+        "- `token_min_b` - The minimum amount of tokenB the user is willing to withdraw.",
+        "",
+        "#### Special Errors",
+        "- `LiquidityZero` - Provided liquidity amount is zero.",
+        "- `LiquidityTooHigh` - Provided liquidity exceeds u128::max.",
+        "- `TokenMinSubceeded` - The required token to perform this operation subceeds the user defined amount."
+      ],
+      "name": "decrease_liquidity"
+    },
+    {
+      "accounts": [
+        {
+          "name": "position_bundle",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_mint",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_token_account",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_owner",
+          "signer": true
+        },
+        {
+          "name": "receiver",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        100,
+        25,
+        99,
+        2,
+        217,
+        239,
+        124,
+        173
+      ],
+      "docs": [
+        "Delete a PositionBundle account. Burns the position bundle token in the owner's wallet.",
+        "",
+        "### Authority",
+        "- `position_bundle_owner` - The owner that owns the position bundle token.",
+        "",
+        "### Special Errors",
+        "- `PositionBundleNotDeletable` - The provided position bundle has open positions."
+      ],
+      "name": "delete_position_bundle"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config"
+        },
+        {
+          "name": "token_badge_authority",
+          "signer": true
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "token_badge",
+          "writable": true
+        },
+        {
+          "name": "receiver",
+          "writable": true
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        53,
+        146,
+        68,
+        8,
+        18,
+        117,
+        17,
+        185
+      ],
+      "name": "delete_token_badge"
+    },
+    {
+      "accounts": [
+        {
+          "name": "limit_order_authority",
+          "signer": true
+        },
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "limit_order",
+          "writable": true
+        },
+        {
+          "name": "limit_order_token_account"
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "token_owner_account",
+          "writable": true
+        },
+        {
+          "name": "token_vault",
+          "writable": true
+        },
+        {
+          "name": "tick_array",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "memo_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "remaining_accounts_info",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "RemainingAccountsInfo"
+              }
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        177,
+        144,
+        89,
+        236,
+        250,
+        186,
+        125,
+        99
+      ],
+      "docs": [
+        "Add tokens to a limit order in the FusionPool.",
+        "",
+        "### Parameters",
+        "- `amount` - The total amount of tokens the user is willing to deposit."
+      ],
+      "name": "increase_limit_order"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "token_program_a"
+        },
+        {
+          "name": "token_program_b"
+        },
+        {
+          "name": "memo_program"
+        },
+        {
+          "name": "position_authority",
+          "signer": true
+        },
+        {
+          "name": "position",
+          "writable": true
+        },
+        {
+          "name": "position_token_account"
+        },
+        {
+          "name": "token_mint_a"
+        },
+        {
+          "name": "token_mint_b"
+        },
+        {
+          "name": "token_owner_account_a",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_b",
+          "writable": true
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "tick_array_lower",
+          "writable": true
+        },
+        {
+          "name": "tick_array_upper",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "liquidity_amount",
+          "type": "u128"
+        },
+        {
+          "name": "token_max_a",
+          "type": "u64"
+        },
+        {
+          "name": "token_max_b",
+          "type": "u64"
+        },
+        {
+          "name": "remaining_accounts_info",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "RemainingAccountsInfo"
+              }
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        46,
+        156,
+        243,
+        118,
+        13,
+        205,
+        251,
+        178
+      ],
+      "docs": [
+        "Add liquidity to a position in the FusionPool. This call also updates the position's accrued fees.",
+        "",
+        "### Authority",
+        "- `position_authority` - authority that owns the token corresponding to this desired position.",
+        "",
+        "### Parameters",
+        "- `liquidity_amount` - The total amount of Liquidity the user is willing to deposit.",
+        "- `token_max_a` - The maximum amount of tokenA the user is willing to deposit.",
+        "- `token_max_b` - The maximum amount of tokenB the user is willing to deposit.",
+        "",
+        "#### Special Errors",
+        "- `LiquidityZero` - Provided liquidity amount is zero.",
+        "- `LiquidityTooHigh` - Provided liquidity exceeds u128::max.",
+        "- `TokenMaxExceeded` - The required token to perform this operation exceeds the user defined amount."
+      ],
+      "name": "increase_liquidity"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config",
+          "writable": true
+        },
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "fee_authority",
+          "type": "pubkey"
+        },
+        {
+          "name": "collect_protocol_fees_authority",
+          "type": "pubkey"
+        },
+        {
+          "name": "token_badge_authority",
+          "type": "pubkey"
+        },
+        {
+          "name": "default_protocol_fee_rate",
+          "type": "u16"
+        }
+      ],
+      "discriminator": [
+        208,
+        127,
+        21,
+        1,
+        194,
+        190,
+        196,
+        70
+      ],
+      "docs": [
+        "Initializes a FusionPoolsConfig account that hosts info & authorities",
+        "required to govern a set of FusionPools.",
+        "",
+        "### Parameters",
+        "- `fee_authority` - Authority authorized to initialize fee-tiers and set customs fees.",
+        "- `collect_protocol_fees_authority` - Authority authorized to collect protocol fees.",
+        "- `token_badge_authority`",
+        "- `default_protocol_fee_rate`",
+        "- `default_order_protocol_fee_rate`"
+      ],
+      "name": "initialize_config"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config"
+        },
+        {
+          "name": "token_mint_a"
+        },
+        {
+          "name": "token_mint_b"
+        },
+        {
+          "name": "token_badge_a"
+        },
+        {
+          "name": "token_badge_b"
+        },
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "token_vault_a",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "token_program_a"
+        },
+        {
+          "name": "token_program_b"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": [
+        {
+          "name": "tick_spacing",
+          "type": "u16"
+        },
+        {
+          "name": "fee_rate",
+          "type": "u16"
+        },
+        {
+          "name": "initial_sqrt_price",
+          "type": "u128"
+        }
+      ],
+      "discriminator": [
+        95,
+        180,
+        10,
+        172,
+        84,
+        174,
+        232,
+        40
+      ],
+      "docs": [
+        "Initializes a FusionPool account.",
+        "",
+        "### Parameters",
+        "- `tick_spacing` - The desired tick spacing for this pool.",
+        "- `fee_rate` - The desired fee rate for this pool.",
+        "- `initial_sqrt_price` - The desired initial sqrt-price for this pool",
+        "",
+        "#### Special Errors",
+        "`InvalidTokenMintOrder` - The order of mints have to be ordered by",
+        "`SqrtPriceOutOfBounds` - provided initial_sqrt_price is not between 2^-64 to 2^64",
+        ""
+      ],
+      "name": "initialize_pool"
+    },
+    {
+      "accounts": [
+        {
+          "name": "position_bundle",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_mint",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "position_bundle_token_account",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_owner"
+        },
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "associated_token_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        117,
+        45,
+        241,
+        149,
+        24,
+        18,
+        194,
+        65
+      ],
+      "docs": [
+        "Initializes a PositionBundle account that bundles several positions.",
+        "A unique token will be minted to represent the position bundle in the users wallet."
+      ],
+      "name": "initialize_position_bundle"
+    },
+    {
+      "accounts": [
+        {
+          "name": "position_bundle",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_mint",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "docs": [
+            "https://github.com/metaplex-foundation/metaplex-program-library/blob/773a574c4b34e5b9f248a81306ec24db064e255f/token-metadata/program/src/utils/metadata.rs#L100"
+          ],
+          "name": "position_bundle_metadata",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_token_account",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_owner"
+        },
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "metadata_update_auth"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "metadata_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        93,
+        124,
+        16,
+        179,
+        249,
+        131,
+        115,
+        245
+      ],
+      "docs": [
+        "Initializes a PositionBundle account that bundles several positions.",
+        "A unique token will be minted to represent the position bundle in the users wallet.",
+        "Additional Metaplex metadata is appended to identify the token."
+      ],
+      "name": "initialize_position_bundle_with_metadata"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pool"
+        },
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "tick_array",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "start_tick_index",
+          "type": "i32"
+        }
+      ],
+      "discriminator": [
+        11,
+        188,
+        193,
+        214,
+        141,
+        91,
+        149,
+        184
+      ],
+      "docs": [
+        "Initializes a tick_array account to represent a tick-range in a FusionPool.",
+        "",
+        "### Parameters",
+        "- `start_tick_index` - The starting tick index for this tick-array.",
+        "Has to be a multiple of TickArray size & the tick spacing of this pool.",
+        "",
+        "#### Special Errors",
+        "- `InvalidStartTick` - if the provided start tick is out of bounds or is not a multiple of",
+        "TICK_ARRAY_SIZE * tick spacing."
+      ],
+      "name": "initialize_tick_array"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config"
+        },
+        {
+          "name": "token_badge_authority",
+          "signer": true
+        },
+        {
+          "name": "token_mint"
+        },
+        {
+          "name": "token_badge",
+          "writable": true
+        },
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        253,
+        77,
+        205,
+        95,
+        27,
+        224,
+        89,
+        223
+      ],
+      "name": "initialize_token_badge"
+    },
+    {
+      "accounts": [
+        {
+          "name": "bundled_position",
+          "writable": true
+        },
+        {
+          "name": "position_bundle",
+          "writable": true
+        },
+        {
+          "name": "position_bundle_token_account"
+        },
+        {
+          "name": "position_bundle_authority",
+          "signer": true
+        },
+        {
+          "name": "fusion_pool"
+        },
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "rent"
+        }
+      ],
+      "args": [
+        {
+          "name": "bundle_index",
+          "type": "u16"
+        },
+        {
+          "name": "tick_lower_index",
+          "type": "i32"
+        },
+        {
+          "name": "tick_upper_index",
+          "type": "i32"
+        }
+      ],
+      "discriminator": [
+        169,
+        113,
+        126,
+        171,
+        213,
+        172,
+        212,
+        49
+      ],
+      "docs": [
+        "Open a bundled position in a FusionPool. No new tokens are issued",
+        "because the owner of the position bundle becomes the owner of the position.",
+        "The position will start off with 0 liquidity.",
+        "",
+        "### Authority",
+        "- `position_bundle_authority` - authority that owns the token corresponding to this desired position bundle.",
+        "",
+        "### Parameters",
+        "- `bundle_index` - The bundle index that we'd like to open.",
+        "- `tick_lower_index` - The tick specifying the lower end of the position range.",
+        "- `tick_upper_index` - The tick specifying the upper end of the position range.",
+        "",
+        "#### Special Errors",
+        "- `InvalidBundleIndex` - If the provided bundle index is out of bounds.",
+        "- `InvalidTickIndex` - If a provided tick is out of bounds, out of order or not a multiple of",
+        "the tick-spacing in this pool."
+      ],
+      "name": "open_bundled_position"
+    },
+    {
+      "accounts": [
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "limit_order",
+          "writable": true
+        },
+        {
+          "name": "limit_order_mint",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "limit_order_token_account",
+          "writable": true
+        },
+        {
+          "name": "fusion_pool"
+        },
+        {
+          "name": "token_2022_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "metadata_update_auth"
+        }
+      ],
+      "args": [
+        {
+          "name": "tick_index",
+          "type": "i32"
+        },
+        {
+          "name": "a_to_b",
+          "type": "bool"
+        },
+        {
+          "name": "with_token_metadata_extension",
+          "type": "bool"
+        }
+      ],
+      "discriminator": [
+        157,
+        32,
+        218,
+        183,
+        71,
+        29,
+        18,
+        147
+      ],
+      "docs": [
+        "Open a limit order in a FusionPool. A unique token will be minted to represent the limit order",
+        "in the users wallet. The limit order will start off with 0 amount.",
+        "",
+        "### Parameters",
+        "- `tick_index` - The tick specifying the limit order execution price.",
+        "- `a_to_b` - The limit order swap direction.",
+        "- `with_token_metadata_extension` - If true, the token metadata extension will be initialized."
+      ],
+      "name": "open_limit_order"
+    },
+    {
+      "accounts": [
+        {
+          "name": "funder",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "owner"
+        },
+        {
+          "name": "position",
+          "writable": true
+        },
+        {
+          "name": "position_mint",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "position_token_account",
+          "writable": true
+        },
+        {
+          "name": "fusion_pool"
+        },
+        {
+          "name": "token_2022_program"
+        },
+        {
+          "name": "system_program"
+        },
+        {
+          "name": "associated_token_program"
+        },
+        {
+          "name": "metadata_update_auth"
+        }
+      ],
+      "args": [
+        {
+          "name": "tick_lower_index",
+          "type": "i32"
+        },
+        {
+          "name": "tick_upper_index",
+          "type": "i32"
+        },
+        {
+          "name": "with_token_metadata_extension",
+          "type": "bool"
+        }
+      ],
+      "discriminator": [
+        135,
+        128,
+        47,
+        77,
+        15,
+        152,
+        240,
+        49
+      ],
+      "docs": [
+        "Open a position in a FusionPool. A unique token will be minted to represent the position",
+        "in the users wallet. Additional TokenMetadata extension is initialized to identify the token.",
+        "Mint and TokenAccount are based on Token-2022.",
+        "The position will start off with 0 liquidity.",
+        "",
+        "### Parameters",
+        "- `tick_lower_index` - The tick specifying the lower end of the position range.",
+        "- `tick_upper_index` - The tick specifying the upper end of the position range.",
+        "- `with_token_metadata_extension` - If true, the token metadata extension will be initialized.",
+        "",
+        "#### Special Errors",
+        "- `InvalidTickIndex` - If a provided tick is out of bounds, out of order or not a multiple of",
+        "the tick-spacing in this pool."
+      ],
+      "name": "open_position"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fee_authority",
+          "signer": true
+        },
+        {
+          "name": "fusion_pools_config"
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "fusion_pool",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "sqrt_price",
+          "type": "u128"
+        }
+      ],
+      "discriminator": [
+        93,
+        158,
+        158,
+        189,
+        131,
+        42,
+        15,
+        22
+      ],
+      "docs": [
+        "Resets the pool price to the provided value if the pool is empty.",
+        "",
+        "### Authority",
+        "- \"fee_authority\" - Set authority that can modify pool fees in the FusionPoolConfig",
+        "",
+        "### Parameters",
+        "- `sqrt_price` - The new sqrt_price of the pool.",
+        "",
+        "#### Special Errors",
+        "- `ResetPriceForNonEmptyPool` - Thrown if the pool is not empty."
+      ],
+      "name": "reset_pool_price"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config",
+          "writable": true
+        },
+        {
+          "name": "collect_protocol_fees_authority",
+          "signer": true
+        },
+        {
+          "name": "new_collect_protocol_fees_authority"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        34,
+        150,
+        93,
+        244,
+        139,
+        225,
+        233,
+        67
+      ],
+      "docs": [
+        "Sets the fee authority to collect protocol fees for a FusionPoolConfig.",
+        "Only the current collect protocol fee authority has permission to invoke this instruction.",
+        "",
+        "### Authority",
+        "- \"fee_authority\" - Set authority that can collect protocol fees in the FusionPoolConfig"
+      ],
+      "name": "set_collect_protocol_fees_authority"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config",
+          "writable": true
+        },
+        {
+          "name": "fee_authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "default_protocol_fee_rate",
+          "type": "u16"
+        }
+      ],
+      "discriminator": [
+        107,
+        205,
+        249,
+        226,
+        151,
+        35,
+        86,
+        0
+      ],
+      "docs": [
+        "Sets the default protocol fee rate for a FusionPoolConfig",
+        "Protocol fee rate is represented as a basis point.",
+        "Only the current fee authority has permission to invoke this instruction.",
+        "",
+        "### Authority",
+        "- \"fee_authority\" - Set authority that can modify pool fees in the FusionPoolConfig",
+        "",
+        "### Parameters",
+        "- `default_protocol_fee_rate` - Rate that is referenced during the initialization of a FusionPool using this config.",
+        "",
+        "#### Special Errors",
+        "- `ProtocolFeeRateMaxExceeded` - If the provided default_protocol_fee_rate exceeds MAX_PROTOCOL_FEE_RATE."
+      ],
+      "name": "set_default_protocol_fee_rate"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config",
+          "writable": true
+        },
+        {
+          "name": "fee_authority",
+          "signer": true
+        },
+        {
+          "name": "new_fee_authority"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        31,
+        1,
+        50,
+        87,
+        237,
+        101,
+        97,
+        132
+      ],
+      "docs": [
+        "Sets the fee authority for a FusionPoolConfig.",
+        "The fee authority can set the fee & protocol fee rate for individual pools or",
+        "set the default fee rate for newly minted pools.",
+        "Only the current fee authority has permission to invoke this instruction.",
+        "",
+        "### Authority",
+        "- \"fee_authority\" - Set authority that can modify pool fees in the FusionPoolConfig"
+      ],
+      "name": "set_fee_authority"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config"
+        },
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "fee_authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "fee_rate",
+          "type": "u16"
+        }
+      ],
+      "discriminator": [
+        53,
+        243,
+        137,
+        65,
+        8,
+        140,
+        158,
+        6
+      ],
+      "docs": [
+        "Sets the fee rate for a FusionPool.",
+        "Fee rate is represented as hundredths of a basis point.",
+        "Only the current fee authority has permission to invoke this instruction.",
+        "",
+        "### Authority",
+        "- \"fee_authority\" - Set authority that can modify pool fees in the FusionPoolConfig",
+        "",
+        "### Parameters",
+        "- `fee_rate` - The rate that the pool will use to calculate fees going onwards.",
+        "",
+        "#### Special Errors",
+        "- `FeeRateMaxExceeded` - If the provided fee_rate exceeds MAX_FEE_RATE."
+      ],
+      "name": "set_fee_rate"
+    },
+    {
+      "accounts": [
+        {
+          "name": "position_authority",
+          "signer": true
+        },
+        {
+          "name": "position",
+          "writable": true
+        },
+        {
+          "name": "position_token_account",
+          "writable": true
+        },
+        {
+          "name": "fusion_pool"
+        }
+      ],
+      "args": [
+        {
+          "name": "tick_lower_index",
+          "type": "i32"
+        },
+        {
+          "name": "tick_upper_index",
+          "type": "i32"
+        }
+      ],
+      "discriminator": [
+        192,
+        22,
+        176,
+        176,
+        155,
+        49,
+        153,
+        96
+      ],
+      "docs": [
+        "Set the position range to a new one.",
+        "",
+        "### Authority",
+        "- `position_authority` - The authority that owns the position token.",
+        "",
+        "### Parameters",
+        "- `tick_lower_index` - The tick specifying the lower index of the position.",
+        "- `tick_upper_index` - The tick specifying the upper index of the position."
+      ],
+      "name": "set_position_range"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config"
+        },
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "fee_authority",
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "protocol_fee_rate",
+          "type": "u16"
+        }
+      ],
+      "discriminator": [
+        95,
+        7,
+        4,
+        50,
+        154,
+        79,
+        156,
+        131
+      ],
+      "docs": [
+        "Sets the protocol fee rate for a FusionPool.",
+        "Protocol fee rate is represented as a basis point.",
+        "Only the current fee authority has permission to invoke this instruction.",
+        "",
+        "### Authority",
+        "- \"fee_authority\" - Set authority that can modify pool fees in the FusionPoolConfig",
+        "",
+        "### Parameters",
+        "- `protocol_fee_rate` - The rate that the pool will use to calculate protocol fees going onwards.",
+        "",
+        "#### Special Errors",
+        "- `ProtocolFeeRateMaxExceeded` - If the provided default_protocol_fee_rate exceeds MAX_PROTOCOL_FEE_RATE."
+      ],
+      "name": "set_protocol_fee_rate"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pools_config",
+          "writable": true
+        },
+        {
+          "name": "fee_authority",
+          "signer": true
+        },
+        {
+          "name": "new_token_badge_authority"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        207,
+        202,
+        4,
+        32,
+        205,
+        79,
+        13,
+        178
+      ],
+      "name": "set_token_badge_authority"
+    },
+    {
+      "accounts": [
+        {
+          "name": "token_program_a"
+        },
+        {
+          "name": "token_program_b"
+        },
+        {
+          "name": "memo_program"
+        },
+        {
+          "name": "token_authority",
+          "signer": true
+        },
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "token_mint_a"
+        },
+        {
+          "name": "token_mint_b"
+        },
+        {
+          "name": "token_owner_account_a",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_b",
+          "writable": true
+        },
+        {
+          "name": "token_vault_a",
+          "writable": true
+        },
+        {
+          "name": "token_vault_b",
+          "writable": true
+        },
+        {
+          "name": "tick_array_0",
+          "writable": true
+        },
+        {
+          "name": "tick_array_1",
+          "writable": true
+        },
+        {
+          "name": "tick_array_2",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "other_amount_threshold",
+          "type": "u64"
+        },
+        {
+          "name": "sqrt_price_limit",
+          "type": "u128"
+        },
+        {
+          "name": "amount_specified_is_input",
+          "type": "bool"
+        },
+        {
+          "name": "a_to_b",
+          "type": "bool"
+        },
+        {
+          "name": "remaining_accounts_info",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "RemainingAccountsInfo"
+              }
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        248,
+        198,
+        158,
+        145,
+        225,
+        117,
+        135,
+        200
+      ],
+      "docs": [
+        "Perform a swap in this FusionPool",
+        "",
+        "### Authority",
+        "- \"token_authority\" - The authority to withdraw tokens from the input token account.",
+        "",
+        "### Parameters",
+        "- `amount` - The amount of input or output token to swap from (depending on amount_specified_is_input).",
+        "- `other_amount_threshold` - The maximum/minimum of input/output token to swap into (depending on amount_specified_is_input).",
+        "- `sqrt_price_limit` - The maximum/minimum price the swap will swap to.",
+        "- `amount_specified_is_input` - Specifies the token the parameter `amount`represents. If true, the amount represents the input token of the swap.",
+        "- `a_to_b` - The direction of the swap. True if swapping from A to B. False if swapping from B to A.",
+        "",
+        "#### Special Errors",
+        "- `ZeroTradableAmount` - User provided parameter `amount` is 0.",
+        "- `InvalidSqrtPriceLimitDirection` - User provided parameter `sqrt_price_limit` does not match the direction of the trade.",
+        "- `SqrtPriceOutOfBounds` - User provided parameter `sqrt_price_limit` is over Whirlppool's max/min bounds for sqrt-price.",
+        "- `InvalidTickArraySequence` - User provided tick-arrays are not in sequential order required to proceed in this trade direction.",
+        "- `TickArraySequenceInvalidIndex` - The swap loop attempted to access an invalid array index during the query of the next initialized tick.",
+        "- `TickArrayIndexOutofBounds` - The swap loop attempted to access an invalid array index during tick crossing.",
+        "- `LiquidityOverflow` - Liquidity value overflowed 128bits during tick crossing.",
+        "- `InvalidTickSpacing` - The swap pool was initialized with tick-spacing of 0."
+      ],
+      "name": "swap"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pool_one",
+          "writable": true
+        },
+        {
+          "name": "fusion_pool_two",
+          "writable": true
+        },
+        {
+          "name": "token_mint_input"
+        },
+        {
+          "name": "token_mint_intermediate"
+        },
+        {
+          "name": "token_mint_output"
+        },
+        {
+          "name": "token_program_input"
+        },
+        {
+          "name": "token_program_intermediate"
+        },
+        {
+          "name": "token_program_output"
+        },
+        {
+          "name": "token_owner_account_input",
+          "writable": true
+        },
+        {
+          "name": "token_vault_one_input",
+          "writable": true
+        },
+        {
+          "name": "token_vault_one_intermediate",
+          "writable": true
+        },
+        {
+          "name": "token_vault_two_intermediate",
+          "writable": true
+        },
+        {
+          "name": "token_vault_two_output",
+          "writable": true
+        },
+        {
+          "name": "token_owner_account_output",
+          "writable": true
+        },
+        {
+          "name": "token_authority",
+          "signer": true
+        },
+        {
+          "name": "tick_array_one_0",
+          "writable": true
+        },
+        {
+          "name": "tick_array_one_1",
+          "writable": true
+        },
+        {
+          "name": "tick_array_one_2",
+          "writable": true
+        },
+        {
+          "name": "tick_array_two_0",
+          "writable": true
+        },
+        {
+          "name": "tick_array_two_1",
+          "writable": true
+        },
+        {
+          "name": "tick_array_two_2",
+          "writable": true
+        },
+        {
+          "name": "memo_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "other_amount_threshold",
+          "type": "u64"
+        },
+        {
+          "name": "amount_specified_is_input",
+          "type": "bool"
+        },
+        {
+          "name": "a_to_b_one",
+          "type": "bool"
+        },
+        {
+          "name": "a_to_b_two",
+          "type": "bool"
+        },
+        {
+          "name": "sqrt_price_limit_one",
+          "type": "u128"
+        },
+        {
+          "name": "sqrt_price_limit_two",
+          "type": "u128"
+        },
+        {
+          "name": "remaining_accounts_info",
+          "type": {
+            "option": {
+              "defined": {
+                "name": "RemainingAccountsInfo"
+              }
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        195,
+        96,
+        237,
+        108,
+        68,
+        162,
+        219,
+        230
+      ],
+      "docs": [
+        "Perform a two-hop swap in this FusionPool",
+        "",
+        "### Authority",
+        "- \"token_authority\" - The authority to withdraw tokens from the input token account.",
+        "",
+        "### Parameters",
+        "- `amount` - The amount of input or output token to swap from (depending on amount_specified_is_input).",
+        "- `other_amount_threshold` - The maximum/minimum of input/output token to swap into (depending on amount_specified_is_input).",
+        "- `amount_specified_is_input` - Specifies the token the parameter `amount`represents. If true, the amount represents the input token of the swap.",
+        "- `a_to_b_one` - The direction of the swap of hop one. True if swapping from A to B. False if swapping from B to A.",
+        "- `a_to_b_two` - The direction of the swap of hop two. True if swapping from A to B. False if swapping from B to A.",
+        "- `sqrt_price_limit_one` - The maximum/minimum price the swap will swap to in the first hop.",
+        "- `sqrt_price_limit_two` - The maximum/minimum price the swap will swap to in the second hop.",
+        "",
+        "#### Special Errors",
+        "- `ZeroTradableAmount` - User provided parameter `amount` is 0.",
+        "- `InvalidSqrtPriceLimitDirection` - User provided parameter `sqrt_price_limit` does not match the direction of the trade.",
+        "- `SqrtPriceOutOfBounds` - User provided parameter `sqrt_price_limit` is over Whirlppool's max/min bounds for sqrt-price.",
+        "- `InvalidTickArraySequence` - User provided tick-arrays are not in sequential order required to proceed in this trade direction.",
+        "- `TickArraySequenceInvalidIndex` - The swap loop attempted to access an invalid array index during the query of the next initialized tick.",
+        "- `TickArrayIndexOutofBounds` - The swap loop attempted to access an invalid array index during tick crossing.",
+        "- `LiquidityOverflow` - Liquidity value overflowed 128bits during tick crossing.",
+        "- `InvalidTickSpacing` - The swap pool was initialized with tick-spacing of 0.",
+        "- `InvalidIntermediaryMint` - Error if the intermediary mint between hop one and two do not equal.",
+        "- `DuplicateTwoHopPool` - Error if fusion_pool one & two are the same pool."
+      ],
+      "name": "two_hop_swap"
+    },
+    {
+      "accounts": [
+        {
+          "name": "fusion_pool",
+          "writable": true
+        },
+        {
+          "name": "position",
+          "writable": true
+        },
+        {
+          "name": "tick_array_lower"
+        },
+        {
+          "name": "tick_array_upper"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        225,
+        27,
+        13,
+        6,
+        69,
+        84,
+        172,
+        191
+      ],
+      "docs": [
+        "Update the accrued fees for a position.",
+        "",
+        "#### Special Errors",
+        "- `TickNotFound` - Provided tick array account does not contain the tick for this position.",
+        "- `LiquidityZero` - Position has zero liquidity and therefore already has the most updated fees values."
+      ],
+      "name": "update_fees"
+    }
+  ],
+  "metadata": {
+    "name": "fusionamm",
+    "spec": "0.1.0",
+    "version": "1.0.14"
+  },
+  "types": [
+    {
+      "name": "AccountsType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "TransferHookA"
+          },
+          {
+            "name": "TransferHookB"
+          },
+          {
+            "name": "TransferHookInput"
+          },
+          {
+            "name": "TransferHookIntermediate"
+          },
+          {
+            "name": "TransferHookOutput"
+          },
+          {
+            "name": "SupplementalTickArrays"
+          },
+          {
+            "name": "SupplementalTickArraysOne"
+          },
+          {
+            "name": "SupplementalTickArraysTwo"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FusionPool",
+      "type": {
+        "fields": [
+          {
+            "name": "bump",
+            "type": {
+              "array": [
+                "u8",
+                1
+              ]
+            }
+          },
+          {
+            "name": "version",
+            "type": "u16"
+          },
+          {
+            "name": "token_mint_a",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_mint_b",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_vault_a",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_vault_b",
+            "type": "pubkey"
+          },
+          {
+            "name": "tick_spacing",
+            "type": "u16"
+          },
+          {
+            "name": "tick_spacing_seed",
+            "type": {
+              "array": [
+                "u8",
+                2
+              ]
+            }
+          },
+          {
+            "name": "fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "protocol_fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "unused_0",
+            "type": "u32"
+          },
+          {
+            "name": "liquidity",
+            "type": "u128"
+          },
+          {
+            "name": "sqrt_price",
+            "type": "u128"
+          },
+          {
+            "name": "tick_current_index",
+            "type": "i32"
+          },
+          {
+            "name": "protocol_fee_owed_a",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_fee_owed_b",
+            "type": "u64"
+          },
+          {
+            "name": "fee_growth_global_a",
+            "type": "u128"
+          },
+          {
+            "name": "fee_growth_global_b",
+            "type": "u128"
+          },
+          {
+            "name": "orders_total_amount_a",
+            "type": "u64"
+          },
+          {
+            "name": "orders_total_amount_b",
+            "type": "u64"
+          },
+          {
+            "name": "orders_filled_amount_a",
+            "type": "u64"
+          },
+          {
+            "name": "orders_filled_amount_b",
+            "type": "u64"
+          },
+          {
+            "name": "olp_fee_owed_a",
+            "type": "u64"
+          },
+          {
+            "name": "olp_fee_owed_b",
+            "type": "u64"
+          },
+          {
+            "name": "ma_sqrt_price",
+            "type": "u128"
+          },
+          {
+            "name": "last_swap_timestamp",
+            "type": "u64"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u8",
+                116
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "FusionPoolsConfig",
+      "type": {
+        "fields": [
+          {
+            "name": "version",
+            "type": "u16"
+          },
+          {
+            "name": "fee_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "collect_protocol_fees_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_badge_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "default_protocol_fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "unused_0",
+            "type": "u16"
+          },
+          {
+            "name": "unused_1",
+            "type": "u16"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u8",
+                170
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "LimitOrder",
+      "type": {
+        "fields": [
+          {
+            "name": "version",
+            "type": "u16"
+          },
+          {
+            "name": "fusion_pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "limit_order_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "tick_index",
+            "type": "i32"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "a_to_b",
+            "type": "bool"
+          },
+          {
+            "name": "age",
+            "type": "u64"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u8",
+                128
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Position",
+      "type": {
+        "fields": [
+          {
+            "name": "version",
+            "type": "u16"
+          },
+          {
+            "name": "fusion_pool",
+            "type": "pubkey"
+          },
+          {
+            "name": "position_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "liquidity",
+            "type": "u128"
+          },
+          {
+            "name": "tick_lower_index",
+            "type": "i32"
+          },
+          {
+            "name": "tick_upper_index",
+            "type": "i32"
+          },
+          {
+            "name": "fee_growth_checkpoint_a",
+            "type": "u128"
+          },
+          {
+            "name": "fee_owed_a",
+            "type": "u64"
+          },
+          {
+            "name": "fee_growth_checkpoint_b",
+            "type": "u128"
+          },
+          {
+            "name": "fee_owed_b",
+            "type": "u64"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u8",
+                128
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "PositionBundle",
+      "type": {
+        "fields": [
+          {
+            "name": "position_bundle_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "position_bitmap",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "RemainingAccountsInfo",
+      "type": {
+        "fields": [
+          {
+            "name": "slices",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "RemainingAccountsSlice"
+                }
+              }
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "RemainingAccountsSlice",
+      "type": {
+        "fields": [
+          {
+            "name": "accounts_type",
+            "type": {
+              "defined": {
+                "name": "AccountsType"
+              }
+            }
+          },
+          {
+            "name": "length",
+            "type": "u8"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Tick",
+      "repr": {
+        "kind": "c",
+        "packed": true
+      },
+      "serialization": "bytemuckunsafe",
+      "type": {
+        "fields": [
+          {
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "name": "liquidity_net",
+            "type": "i128"
+          },
+          {
+            "name": "liquidity_gross",
+            "type": "u128"
+          },
+          {
+            "name": "fee_growth_outside_a",
+            "type": "u128"
+          },
+          {
+            "name": "fee_growth_outside_b",
+            "type": "u128"
+          },
+          {
+            "name": "age",
+            "type": "u64"
+          },
+          {
+            "name": "open_orders_input",
+            "type": "u64"
+          },
+          {
+            "name": "part_filled_orders_input",
+            "type": "u64"
+          },
+          {
+            "name": "part_filled_orders_remaining_input",
+            "type": "u64"
+          },
+          {
+            "name": "fulfilled_a_to_b_orders_input",
+            "type": "u64"
+          },
+          {
+            "name": "fulfilled_b_to_a_orders_input",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "TickArray",
+      "repr": {
+        "kind": "c",
+        "packed": true
+      },
+      "serialization": "bytemuckunsafe",
+      "type": {
+        "fields": [
+          {
+            "name": "start_tick_index",
+            "type": "i32"
+          },
+          {
+            "name": "ticks",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "Tick"
+                  }
+                },
+                88
+              ]
+            }
+          },
+          {
+            "name": "fusion_pool",
+            "type": "pubkey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "TokenBadge",
+      "type": {
+        "fields": [
+          {
+            "name": "token_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": [
+                "u8",
+                128
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+[package]
+name = "dex_pinocchio_cpi"
+version = "0.1.0"
+edition = "2021"
+description = "Pinocchio-compatible CPI clients for 30 DEX programs on Solana"
+license = "MIT"
+
+[lib]
+crate-type = ["lib"]
+
+[dependencies]
+pinocchio = { version = "0.10", features = ["cpi"] }
+five8_const = "0.1"
+
+[features]
+default = []

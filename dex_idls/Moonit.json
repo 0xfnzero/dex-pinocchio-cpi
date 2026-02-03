@@ -1,0 +1,995 @@
+{
+  "accounts": [
+    {
+      "name": "ConfigAccount",
+      "type": {
+        "fields": [
+          {
+            "name": "migrationAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "backendAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "configAuthority",
+            "type": "publicKey"
+          },
+          {
+            "name": "helioFee",
+            "type": "publicKey"
+          },
+          {
+            "name": "dexFee",
+            "type": "publicKey"
+          },
+          {
+            "name": "feeBps",
+            "type": "u16"
+          },
+          {
+            "name": "dexFeeShare",
+            "type": "u8"
+          },
+          {
+            "name": "migrationFee",
+            "type": "u64"
+          },
+          {
+            "name": "marketcapThreshold",
+            "type": "u64"
+          },
+          {
+            "name": "marketcapCurrency",
+            "type": {
+              "defined": "Currency"
+            }
+          },
+          {
+            "name": "minSupportedDecimalPlaces",
+            "type": "u8"
+          },
+          {
+            "name": "maxSupportedDecimalPlaces",
+            "type": "u8"
+          },
+          {
+            "name": "minSupportedTokenSupply",
+            "type": "u64"
+          },
+          {
+            "name": "maxSupportedTokenSupply",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "coefB",
+            "type": "u32"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "CurveAccount",
+      "type": {
+        "fields": [
+          {
+            "name": "totalSupply",
+            "type": "u64"
+          },
+          {
+            "name": "curveAmount",
+            "type": "u64"
+          },
+          {
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "collateralCurrency",
+            "type": {
+              "defined": "Currency"
+            }
+          },
+          {
+            "name": "curveType",
+            "type": {
+              "defined": "CurveType"
+            }
+          },
+          {
+            "name": "marketcapThreshold",
+            "type": "u64"
+          },
+          {
+            "name": "marketcapCurrency",
+            "type": {
+              "defined": "Currency"
+            }
+          },
+          {
+            "name": "migrationFee",
+            "type": "u64"
+          },
+          {
+            "name": "coefB",
+            "type": "u32"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "migrationTarget",
+            "type": {
+              "defined": "MigrationTarget"
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "msg": "Insufficient SOL to pay for the transaction.",
+      "name": "InsufficientBalance"
+    },
+    {
+      "code": 6001,
+      "msg": "The amount must be available in the curve .",
+      "name": "InvalidAmount"
+    },
+    {
+      "code": 6002,
+      "msg": "The slippage must be under 100 percent.",
+      "name": "InvalidSlippage"
+    },
+    {
+      "code": 6003,
+      "msg": "The cost amount is not in the allowed slippage interval.",
+      "name": "SlippageOverflow"
+    },
+    {
+      "code": 6004,
+      "msg": "Threshold limit exceeded.",
+      "name": "ThresholdReached"
+    },
+    {
+      "code": 6005,
+      "msg": "Trade disabled, market cap threshold reached.",
+      "name": "InvalidTokenAccount"
+    },
+    {
+      "code": 6006,
+      "msg": "Invalid curve account.",
+      "name": "InvalidCurveAccount"
+    },
+    {
+      "code": 6007,
+      "msg": "Invalid fee account address.",
+      "name": "InvalidFeeAccount"
+    },
+    {
+      "code": 6008,
+      "msg": "Curve limit exceeded.",
+      "name": "CurveLimit"
+    },
+    {
+      "code": 6009,
+      "msg": "Invalid curve type.",
+      "name": "InvalidCurveType"
+    },
+    {
+      "code": 6010,
+      "msg": "Invalid currency.",
+      "name": "InvalidCurrency"
+    },
+    {
+      "code": 6011,
+      "msg": "Artithmetics error",
+      "name": "Arithmetics"
+    },
+    {
+      "code": 6012,
+      "msg": "Market Cap threshold not hit, cannot migrate funds yet",
+      "name": "ThresholdNotHit"
+    },
+    {
+      "code": 6013,
+      "msg": "Invalid Authority provided.",
+      "name": "InvalidAuthority"
+    },
+    {
+      "code": 6014,
+      "msg": "Trade amount too low , resulting in 0 costs",
+      "name": "TradeAmountTooLow"
+    },
+    {
+      "code": 6015,
+      "msg": "Config field needs to be present during initialization",
+      "name": "ConfigFieldMissing"
+    },
+    {
+      "code": 6016,
+      "msg": "Unsupported different currency types",
+      "name": "DifferentCurrencies"
+    },
+    {
+      "code": 6017,
+      "msg": "Basis points too high",
+      "name": "BasisPointTooHigh"
+    },
+    {
+      "code": 6018,
+      "msg": "Fee share too High",
+      "name": "FeeShareTooHigh"
+    },
+    {
+      "code": 6019,
+      "msg": "Token decimals are not within the supported range",
+      "name": "TokenDecimalsOutOfRange"
+    },
+    {
+      "code": 6020,
+      "msg": "Token Name too long, max supported length is 32 bytes",
+      "name": "TokenNameTooLong"
+    },
+    {
+      "code": 6021,
+      "msg": "Token Symbol too long, max supported length is 10 bytes",
+      "name": "TokenSymbolTooLong"
+    },
+    {
+      "code": 6022,
+      "msg": "Token URI too long, max supported length is 200 bytes",
+      "name": "TokenURITooLong"
+    },
+    {
+      "code": 6023,
+      "msg": "Minimum Decimal Places cannot be lower than Maximum Decimal Places",
+      "name": "IncorrectDecimalPlacesBounds"
+    },
+    {
+      "code": 6024,
+      "msg": "Minimum Token Supply cannot be lower than Maximum Token Supply",
+      "name": "IncorrectTokenSupplyBounds"
+    },
+    {
+      "code": 6025,
+      "msg": "Token Total Supply out of bounds",
+      "name": "TotalSupplyOutOfBounds"
+    },
+    {
+      "code": 6026,
+      "msg": "This setup will produce final collateral amount less than the migration fee",
+      "name": "FinalCollateralTooLow"
+    },
+    {
+      "code": 6027,
+      "msg": "One of the Coefficients is equal to ZERO",
+      "name": "CoefficientZero"
+    },
+    {
+      "code": 6028,
+      "msg": "Market cap Threshold under the Hard lower bound limits",
+      "name": "MarketCapThresholdTooLow"
+    },
+    {
+      "code": 6029,
+      "msg": "Default coef_b set out of hard limit bounds",
+      "name": "CoefBOutofBounds"
+    },
+    {
+      "code": 6030,
+      "msg": "For Constant Product the Market Cap threshold cannot be higher than 325 SOL",
+      "name": "IncorrectMarketCap"
+    },
+    {
+      "code": 6031,
+      "msg": "For Constant Product the Decimal places cannot be other than 9",
+      "name": "IncorrectDecimals"
+    },
+    {
+      "code": 6032,
+      "msg": "For Constant Product the Maximal Token Supply cannot be other than 1_000_000_000",
+      "name": "IncorrectMaxSupply"
+    },
+    {
+      "code": 6033,
+      "msg": "Market Cap Threshold set too high, will not be hit even if Curve Hard Limit reached",
+      "name": "MarketCapTooHigh"
+    },
+    {
+      "code": 6034,
+      "msg": "This Migration Target is not supported!",
+      "name": "InvalidMigrationTarget"
+    },
+    {
+      "code": 6035,
+      "msg": "General error",
+      "name": "General"
+    }
+  ],
+  "events": [
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "collateralAmount",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "dexFee",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "helioFee",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "allocation",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "curve",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "costToken",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "sender",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "type",
+          "type": {
+            "defined": "TradeType"
+          }
+        },
+        {
+          "index": true,
+          "name": "label",
+          "type": "string"
+        }
+      ],
+      "name": "TradeEvent"
+    },
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "tokensMigrated",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "tokensBurned",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "collateralMigrated",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "fee",
+          "type": "u64"
+        },
+        {
+          "index": true,
+          "name": "label",
+          "type": "string"
+        }
+      ],
+      "name": "MigrationEvent"
+    }
+  ],
+  "instructions": [
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "sender"
+        },
+        {
+          "isMut": false,
+          "isSigner": true,
+          "name": "backendAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "curveAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "mint"
+        },
+        {
+          "docs": [
+            "Type validating that the account is owned by the System Program = uninitialized",
+            "seeds should ensure that the address is correct"
+          ],
+          "isMut": true,
+          "isSigner": false,
+          "name": "mintMetadata"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "curveTokenAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "configAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "associatedTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mplTokenMetadata"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "mintParams",
+          "type": {
+            "defined": "TokenMintParams"
+          }
+        }
+      ],
+      "name": "tokenMint"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "sender"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "senderTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "curveAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "curveTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "dexFee"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "helioFee"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "configAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "associatedTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": {
+            "defined": "TradeParams"
+          }
+        }
+      ],
+      "name": "buy"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "sender"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "senderTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "curveAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "curveTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "dexFee"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "helioFee"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "configAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "associatedTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": {
+            "defined": "TradeParams"
+          }
+        }
+      ],
+      "name": "sell"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "BE Authority"
+          ],
+          "isMut": false,
+          "isSigner": true,
+          "name": "backendAuthority"
+        },
+        {
+          "docs": [
+            "Migration Authority",
+            "Owner and Payer over Token Accounts, needs to be mutable"
+          ],
+          "isMut": true,
+          "isSigner": true,
+          "name": "migrationAuthority"
+        },
+        {
+          "docs": [
+            "Curve Account",
+            "The account is closed after this instruction"
+          ],
+          "isMut": true,
+          "isSigner": false,
+          "name": "curveAccount"
+        },
+        {
+          "docs": [
+            "Curve Token Account",
+            "The account is closed after this instruction"
+          ],
+          "isMut": true,
+          "isSigner": false,
+          "name": "curveTokenAccount"
+        },
+        {
+          "docs": [
+            "Authority token Account",
+            "Init on demand"
+          ],
+          "isMut": true,
+          "isSigner": false,
+          "name": "migrationAuthorityTokenAccount"
+        },
+        {
+          "docs": [
+            "InterfaceAccount: checks program ownership + deserialize into Mint"
+          ],
+          "isMut": true,
+          "isSigner": false,
+          "name": "mint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "dexFeeAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "helioFeeAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "configAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "associatedTokenProgram"
+        }
+      ],
+      "args": [],
+      "name": "migrateFunds"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "configAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "configAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": {
+            "defined": "ConfigParams"
+          }
+        }
+      ],
+      "name": "configInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": false,
+          "isSigner": true,
+          "name": "configAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "configAccount"
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": {
+            "defined": "ConfigParams"
+          }
+        }
+      ],
+      "name": "configUpdate"
+    }
+  ],
+  "name": "token_launchpad",
+  "types": [
+    {
+      "name": "TokenMintParams",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "uri",
+            "type": "string"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "collateralCurrency",
+            "type": "u8"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "curveType",
+            "type": "u8"
+          },
+          {
+            "name": "migrationTarget",
+            "type": "u8"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "TradeParams",
+      "type": {
+        "fields": [
+          {
+            "name": "tokenAmount",
+            "type": "u64"
+          },
+          {
+            "name": "collateralAmount",
+            "type": "u64"
+          },
+          {
+            "name": "fixedSide",
+            "type": "u8"
+          },
+          {
+            "name": "slippageBps",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ConfigParams",
+      "type": {
+        "fields": [
+          {
+            "name": "migrationAuthority",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "backendAuthority",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "configAuthority",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "helioFee",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "dexFee",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "feeBps",
+            "type": {
+              "option": "u16"
+            }
+          },
+          {
+            "name": "dexFeeShare",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "migrationFee",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "marketcapThreshold",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "marketcapCurrency",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "minSupportedDecimalPlaces",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "maxSupportedDecimalPlaces",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "minSupportedTokenSupply",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "maxSupportedTokenSupply",
+            "type": {
+              "option": "u64"
+            }
+          },
+          {
+            "name": "coefB",
+            "type": {
+              "option": "u32"
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Currency",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Sol"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CurveType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "LinearV1"
+          },
+          {
+            "name": "ConstantProductV1"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MigrationTarget",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Raydium"
+          },
+          {
+            "name": "Meteora"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TradeType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Buy"
+          },
+          {
+            "name": "Sell"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FixedSide",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "ExactIn"
+          },
+          {
+            "name": "ExactOut"
+          }
+        ]
+      }
+    }
+  ],
+  "version": "0.1.0"
+}

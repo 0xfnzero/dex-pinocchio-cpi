@@ -1,0 +1,348 @@
+{
+  "accounts": [
+    {
+      "name": "WrappedToken",
+      "type": {
+        "fields": [
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "multiplier",
+            "type": "u64"
+          },
+          {
+            "name": "wrapperUnderlyingMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "wrapperUnderlyingTokens",
+            "type": "publicKey"
+          },
+          {
+            "name": "wrapperMint",
+            "type": "publicKey"
+          }
+        ],
+        "kind": "struct"
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 300,
+      "msg": "Wrapper underlying tokens account must be empty.",
+      "name": "InitNonEmptyAccount"
+    },
+    {
+      "code": 301,
+      "msg": "Supply of the wrapper mint is non-zero",
+      "name": "InitWrapperSupplyNonZero"
+    },
+    {
+      "code": 302,
+      "msg": "Owner of the wrapper underlying tokens account must be the wrapper",
+      "name": "InitWrapperUnderlyingOwnerMismatch"
+    },
+    {
+      "code": 303,
+      "msg": "Underlying mint does not match underlying tokens account mint",
+      "name": "InitWrapperUnderlyingMintMismatch"
+    },
+    {
+      "code": 304,
+      "msg": "Mint authority mismatch",
+      "name": "InitMintAuthorityMismatch"
+    },
+    {
+      "code": 305,
+      "msg": "Initial decimals too high",
+      "name": "InitMultiplierOverflow"
+    },
+    {
+      "code": 306,
+      "msg": "The number of target decimals must be greater than or equal to the underlying asset's decimals.",
+      "name": "InitWrapperDecimalsTooLow"
+    },
+    {
+      "code": 307,
+      "msg": "Mint amount overflow. This error happens when the token cannot support this many decimals added to the token.",
+      "name": "MintAmountOverflow"
+    },
+    {
+      "code": 308,
+      "msg": "Failed to convert burn amount from withdraw amount.",
+      "name": "InvalidBurnAmount"
+    },
+    {
+      "code": 309,
+      "msg": "Failed to convert withdraw amount from wrapped amount.",
+      "name": "InvalidWithdrawAmount"
+    },
+    {
+      "code": 310,
+      "msg": "User does not have enough underlying tokens",
+      "name": "InsufficientUnderlyingBalance"
+    },
+    {
+      "code": 311,
+      "msg": "User does not have enough wrapped tokens",
+      "name": "InsufficientWrappedBalance"
+    },
+    {
+      "code": 312,
+      "msg": "Cannot send zero tokens",
+      "name": "ZeroAmount"
+    },
+    {
+      "code": 313,
+      "msg": "Unknown router action",
+      "name": "UnknownAction"
+    }
+  ],
+  "events": [
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "payer",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "decimals",
+          "type": "u8"
+        },
+        {
+          "index": false,
+          "name": "multiplier",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "wrapperUnderlyingMint",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "wrapperUnderlyingTokens",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "wrapperMint",
+          "type": "publicKey"
+        }
+      ],
+      "name": "InitEvent"
+    },
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "owner",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "underlyingMint",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "wrappedMint",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "depositAmount",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "mintAmount",
+          "type": "u64"
+        }
+      ],
+      "name": "DepositEvent"
+    },
+    {
+      "fields": [
+        {
+          "index": false,
+          "name": "owner",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "underlyingMint",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "wrappedMint",
+          "type": "publicKey"
+        },
+        {
+          "index": false,
+          "name": "withdrawAmount",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "burnAmount",
+          "type": "u64"
+        },
+        {
+          "index": false,
+          "name": "dustAmount",
+          "type": "u64"
+        }
+      ],
+      "name": "WithdrawEvent"
+    }
+  ],
+  "instructions": [
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "wrapper"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "wrapperUnderlyingTokens"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "underlyingMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "wrapperMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": true,
+          "name": "payer"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "nonce",
+          "type": "u8"
+        }
+      ],
+      "name": "initializeWrapper"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "wrapper"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "wrapperMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "wrapperUnderlyingTokens"
+        },
+        {
+          "isMut": false,
+          "isSigner": true,
+          "name": "owner"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userUnderlyingTokens"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userWrappedTokens"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "depositAmount",
+          "type": "u64"
+        }
+      ],
+      "name": "deposit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "wrapper"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "wrapperMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "wrapperUnderlyingTokens"
+        },
+        {
+          "isMut": false,
+          "isSigner": true,
+          "name": "owner"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userUnderlyingTokens"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userWrappedTokens"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "maxBurnAmount",
+          "type": "u64"
+        }
+      ],
+      "name": "withdraw"
+    }
+  ],
+  "name": "add_decimals",
+  "version": "0.0.0"
+}

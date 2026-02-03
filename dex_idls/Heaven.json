@@ -1,0 +1,211 @@
+{
+  "address": "HEAVENoP2qxoeuF8Dj2oT1GHEnu49U5mJYkdeC8BAX2o",
+  "metadata": {
+    "name": "heaven_dex",
+    "version": "0.2.0",
+    "spec": "0.1.0",
+    "description": "Heaven DEX - Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "buy",
+      "discriminator": [102, 6, 61, 18, 1, 218, 235, 234],
+      "accounts": [
+        {
+          "name": "token_a_program",
+          "docs": ["Token program for token A"]
+        },
+        {
+          "name": "token_b_program",
+          "docs": ["Token program for token B"]
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "liquidity_pool_state",
+          "writable": true,
+          "docs": ["Pool state account"]
+        },
+        {
+          "name": "user",
+          "signer": true,
+          "docs": ["User performing the swap"]
+        },
+        {
+          "name": "token_a_mint",
+          "docs": ["Token A mint"]
+        },
+        {
+          "name": "token_b_mint",
+          "docs": ["Token B mint"]
+        },
+        {
+          "name": "user_token_a_vault",
+          "writable": true,
+          "docs": ["User's token A account"]
+        },
+        {
+          "name": "user_token_b_vault",
+          "writable": true,
+          "docs": ["User's token B account"]
+        },
+        {
+          "name": "token_a_vault",
+          "writable": true,
+          "docs": ["Pool's token A vault"]
+        },
+        {
+          "name": "token_b_vault",
+          "writable": true,
+          "docs": ["Pool's token B vault"]
+        },
+        {
+          "name": "protocol_config",
+          "writable": true,
+          "docs": ["Protocol configuration"]
+        },
+        {
+          "name": "instruction_sysvar_account_info",
+          "address": "Sysvar1nstructions1111111111111111111111111",
+          "docs": ["Sysvar instructions"]
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "BuyParams"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "sell",
+      "discriminator": [51, 230, 133, 164, 1, 127, 131, 173],
+      "accounts": [
+        {
+          "name": "token_a_program",
+          "docs": ["Token program for token A"]
+        },
+        {
+          "name": "token_b_program",
+          "docs": ["Token program for token B"]
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "liquidity_pool_state",
+          "writable": true,
+          "docs": ["Pool state account"]
+        },
+        {
+          "name": "user",
+          "signer": true,
+          "docs": ["User performing the swap"]
+        },
+        {
+          "name": "token_a_mint",
+          "docs": ["Token A mint"]
+        },
+        {
+          "name": "token_b_mint",
+          "docs": ["Token B mint"]
+        },
+        {
+          "name": "user_token_a_vault",
+          "writable": true,
+          "docs": ["User's token A account"]
+        },
+        {
+          "name": "user_token_b_vault",
+          "writable": true,
+          "docs": ["User's token B account"]
+        },
+        {
+          "name": "token_a_vault",
+          "writable": true,
+          "docs": ["Pool's token A vault"]
+        },
+        {
+          "name": "token_b_vault",
+          "writable": true,
+          "docs": ["Pool's token B vault"]
+        },
+        {
+          "name": "protocol_config",
+          "writable": true,
+          "docs": ["Protocol configuration"]
+        },
+        {
+          "name": "instruction_sysvar_account_info",
+          "address": "Sysvar1nstructions1111111111111111111111111",
+          "docs": ["Sysvar instructions"]
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "SellParams"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "LiquidityPoolState",
+      "discriminator": [190, 158, 220, 130, 15, 162, 132, 252]
+    }
+  ],
+  "types": [
+    {
+      "name": "BuyParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "exact_in_amount",
+            "type": "u64"
+          },
+          {
+            "name": "minimum_out_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SellParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "exact_in_amount",
+            "type": "u64"
+          },
+          {
+            "name": "minimum_out_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ]
+}

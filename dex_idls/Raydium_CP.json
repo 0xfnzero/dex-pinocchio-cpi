@@ -1,0 +1,3084 @@
+{
+  "accounts": [
+    {
+      "discriminator": [
+        218,
+        244,
+        33,
+        104,
+        203,
+        203,
+        43,
+        111
+      ],
+      "name": "AmmConfig"
+    },
+    {
+      "discriminator": [
+        122,
+        174,
+        197,
+        53,
+        129,
+        9,
+        165,
+        132
+      ],
+      "name": "ObservationState"
+    },
+    {
+      "discriminator": [
+        224,
+        83,
+        28,
+        79,
+        10,
+        253,
+        161,
+        28
+      ],
+      "name": "Permission"
+    },
+    {
+      "discriminator": [
+        247,
+        237,
+        227,
+        245,
+        215,
+        195,
+        222,
+        70
+      ],
+      "name": "PoolState"
+    }
+  ],
+  "address": "CPMMoo8L3F4NbTegBCKVNunggL7H1ZpdTHKxQB5qKP1C",
+  "errors": [
+    {
+      "code": 6000,
+      "msg": "Not approved",
+      "name": "NotApproved"
+    },
+    {
+      "code": 6001,
+      "msg": "Input account owner is not the program address",
+      "name": "InvalidOwner"
+    },
+    {
+      "code": 6002,
+      "msg": "Input token account empty",
+      "name": "EmptySupply"
+    },
+    {
+      "code": 6003,
+      "msg": "InvalidInput",
+      "name": "InvalidInput"
+    },
+    {
+      "code": 6004,
+      "msg": "Address of the provided lp token mint is incorrect",
+      "name": "IncorrectLpMint"
+    },
+    {
+      "code": 6005,
+      "msg": "Exceeds desired slippage limit",
+      "name": "ExceededSlippage"
+    },
+    {
+      "code": 6006,
+      "msg": "Given pool token amount results in zero trading tokens",
+      "name": "ZeroTradingTokens"
+    },
+    {
+      "code": 6007,
+      "msg": "Not support token_2022 mint extension",
+      "name": "NotSupportMint"
+    },
+    {
+      "code": 6008,
+      "msg": "invaild vault",
+      "name": "InvalidVault"
+    },
+    {
+      "code": 6009,
+      "msg": "Init lp amount is too less(Because 100 amount lp will be locked)",
+      "name": "InitLpAmountTooLess"
+    },
+    {
+      "code": 6010,
+      "msg": "TransferFee calculate not match",
+      "name": "TransferFeeCalculateNotMatch"
+    },
+    {
+      "code": 6011,
+      "msg": "Math overflow",
+      "name": "MathOverflow"
+    },
+    {
+      "code": 6012,
+      "msg": "Insufficient vault",
+      "name": "InsufficientVault"
+    },
+    {
+      "code": 6013,
+      "msg": "Invalid fee model",
+      "name": "InvalidFeeModel"
+    },
+    {
+      "code": 6014,
+      "msg": "Fee is zero",
+      "name": "NoFeeCollect"
+    }
+  ],
+  "events": [
+    {
+      "discriminator": [
+        121,
+        163,
+        205,
+        201,
+        57,
+        218,
+        117,
+        60
+      ],
+      "name": "LpChangeEvent"
+    },
+    {
+      "discriminator": [
+        64,
+        198,
+        205,
+        232,
+        38,
+        8,
+        113,
+        226
+      ],
+      "name": "SwapEvent"
+    }
+  ],
+  "instructions": [
+    {
+      "accounts": [
+        {
+          "address": "GThUX1Atko4tqhN2NaiTazWSeFWMuiUvfFnyJyUghFMJ",
+          "name": "owner",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "permission_authority"
+        },
+        {
+          "docs": [
+            "Initialize config state account to store protocol owner address and fee rates."
+          ],
+          "name": "permission",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  114,
+                  109,
+                  105,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "permission_authority"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "address": "11111111111111111111111111111111",
+          "name": "system_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        156,
+        84,
+        32,
+        118,
+        69,
+        135,
+        70,
+        123
+      ],
+      "docs": [
+        "Close a permission account",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        ""
+      ],
+      "name": "close_permission_pda"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "Only pool creator can collect fee"
+          ],
+          "name": "creator",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "docs": [
+            "Pool state stores accumulated protocol fee amount"
+          ],
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "Amm config account stores fund_owner"
+          ],
+          "name": "amm_config"
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_0"
+          ],
+          "name": "token_0_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_1"
+          ],
+          "name": "token_1_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The mint of token_0 vault"
+          ],
+          "name": "vault_0_mint"
+        },
+        {
+          "docs": [
+            "The mint of token_1 vault"
+          ],
+          "name": "vault_1_mint"
+        },
+        {
+          "docs": [
+            "The address that receives the collected token_0 fund fees"
+          ],
+          "name": "creator_token_0",
+          "pda": {
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            },
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "creator"
+              },
+              {
+                "kind": "account",
+                "path": "token_0_program"
+              },
+              {
+                "kind": "account",
+                "path": "vault_0_mint"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that receives the collected token_1 fund fees"
+          ],
+          "name": "creator_token_1",
+          "pda": {
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            },
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "creator"
+              },
+              {
+                "kind": "account",
+                "path": "token_1_program"
+              },
+              {
+                "kind": "account",
+                "path": "vault_1_mint"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "docs": [
+            "Spl token program or token program 2022"
+          ],
+          "name": "token_0_program"
+        },
+        {
+          "docs": [
+            "Spl token program or token program 2022"
+          ],
+          "name": "token_1_program"
+        },
+        {
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+          "docs": [
+            "Program to create an ATA for receiving position NFT"
+          ],
+          "name": "associated_token_program"
+        },
+        {
+          "address": "11111111111111111111111111111111",
+          "docs": [
+            "To create a new program account"
+          ],
+          "name": "system_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        20,
+        22,
+        86,
+        123,
+        198,
+        28,
+        219,
+        132
+      ],
+      "docs": [
+        "Collect the creator fee",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The context of accounts",
+        ""
+      ],
+      "name": "collect_creator_fee"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "Only admin or fund_owner can collect fee now"
+          ],
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "docs": [
+            "Pool state stores accumulated protocol fee amount"
+          ],
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "Amm config account stores fund_owner"
+          ],
+          "name": "amm_config"
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_0"
+          ],
+          "name": "token_0_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_1"
+          ],
+          "name": "token_1_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The mint of token_0 vault"
+          ],
+          "name": "vault_0_mint"
+        },
+        {
+          "docs": [
+            "The mint of token_1 vault"
+          ],
+          "name": "vault_1_mint"
+        },
+        {
+          "docs": [
+            "The address that receives the collected token_0 fund fees"
+          ],
+          "name": "recipient_token_0_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that receives the collected token_1 fund fees"
+          ],
+          "name": "recipient_token_1_account",
+          "writable": true
+        },
+        {
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "docs": [
+            "The SPL program to perform token transfers"
+          ],
+          "name": "token_program"
+        },
+        {
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "docs": [
+            "The SPL program 2022 to perform token transfers"
+          ],
+          "name": "token_program_2022"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_0_requested",
+          "type": "u64"
+        },
+        {
+          "name": "amount_1_requested",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        167,
+        138,
+        78,
+        149,
+        223,
+        194,
+        6,
+        126
+      ],
+      "docs": [
+        "Collect the fund fee accrued to the pool",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The context of accounts",
+        "* `amount_0_requested` - The maximum amount of token_0 to send, can be 0 to collect fees in only token_1",
+        "* `amount_1_requested` - The maximum amount of token_1 to send, can be 0 to collect fees in only token_0",
+        ""
+      ],
+      "name": "collect_fund_fee"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "Only admin or owner can collect fee now"
+          ],
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "docs": [
+            "Pool state stores accumulated protocol fee amount"
+          ],
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "Amm config account stores owner"
+          ],
+          "name": "amm_config"
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_0"
+          ],
+          "name": "token_0_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_1"
+          ],
+          "name": "token_1_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The mint of token_0 vault"
+          ],
+          "name": "vault_0_mint"
+        },
+        {
+          "docs": [
+            "The mint of token_1 vault"
+          ],
+          "name": "vault_1_mint"
+        },
+        {
+          "docs": [
+            "The address that receives the collected token_0 protocol fees"
+          ],
+          "name": "recipient_token_0_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that receives the collected token_1 protocol fees"
+          ],
+          "name": "recipient_token_1_account",
+          "writable": true
+        },
+        {
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "docs": [
+            "The SPL program to perform token transfers"
+          ],
+          "name": "token_program"
+        },
+        {
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "docs": [
+            "The SPL program 2022 to perform token transfers"
+          ],
+          "name": "token_program_2022"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_0_requested",
+          "type": "u64"
+        },
+        {
+          "name": "amount_1_requested",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        136,
+        136,
+        252,
+        221,
+        194,
+        66,
+        126,
+        89
+      ],
+      "docs": [
+        "Collect the protocol fee accrued to the pool",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx` - The context of accounts",
+        "* `amount_0_requested` - The maximum amount of token_0 to send, can be 0 to collect fees in only token_1",
+        "* `amount_1_requested` - The maximum amount of token_1 to send, can be 0 to collect fees in only token_0",
+        ""
+      ],
+      "name": "collect_protocol_fee"
+    },
+    {
+      "accounts": [
+        {
+          "address": "GThUX1Atko4tqhN2NaiTazWSeFWMuiUvfFnyJyUghFMJ",
+          "docs": [
+            "Address to be set as protocol owner."
+          ],
+          "name": "owner",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "docs": [
+            "Initialize config state account to store protocol owner address and fee rates."
+          ],
+          "name": "amm_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  97,
+                  109,
+                  109,
+                  95,
+                  99,
+                  111,
+                  110,
+                  102,
+                  105,
+                  103
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "index"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "address": "11111111111111111111111111111111",
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "index",
+          "type": "u16"
+        },
+        {
+          "name": "trade_fee_rate",
+          "type": "u64"
+        },
+        {
+          "name": "protocol_fee_rate",
+          "type": "u64"
+        },
+        {
+          "name": "fund_fee_rate",
+          "type": "u64"
+        },
+        {
+          "name": "create_pool_fee",
+          "type": "u64"
+        },
+        {
+          "name": "creator_fee_rate",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        137,
+        52,
+        237,
+        212,
+        215,
+        117,
+        108,
+        104
+      ],
+      "docs": [
+        "# Arguments",
+        "",
+        "* `ctx`- The accounts needed by instruction.",
+        "* `index` - The index of amm config, there may be multiple config.",
+        "* `trade_fee_rate` - Trade fee rate, can be changed.",
+        "* `protocol_fee_rate` - The rate of protocol fee within trade fee.",
+        "* `fund_fee_rate` - The rate of fund fee within trade fee.",
+        ""
+      ],
+      "name": "create_amm_config"
+    },
+    {
+      "accounts": [
+        {
+          "address": "GThUX1Atko4tqhN2NaiTazWSeFWMuiUvfFnyJyUghFMJ",
+          "name": "owner",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "permission_authority"
+        },
+        {
+          "docs": [
+            "Initialize config state account to store protocol owner address and fee rates."
+          ],
+          "name": "permission",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  114,
+                  109,
+                  105,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "permission_authority"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "address": "11111111111111111111111111111111",
+          "name": "system_program"
+        }
+      ],
+      "args": [],
+      "discriminator": [
+        135,
+        136,
+        2,
+        216,
+        137,
+        169,
+        181,
+        202
+      ],
+      "docs": [
+        "Create a permission account",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        ""
+      ],
+      "name": "create_permission_pda"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "Pays to mint the position"
+          ],
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "Owner lp token account"
+          ],
+          "name": "owner_lp_token",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The payer's token account for token_0"
+          ],
+          "name": "token_0_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The payer's token account for token_1"
+          ],
+          "name": "token_1_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_0"
+          ],
+          "name": "token_0_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_1"
+          ],
+          "name": "token_1_vault",
+          "writable": true
+        },
+        {
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "docs": [
+            "token Program"
+          ],
+          "name": "token_program"
+        },
+        {
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "docs": [
+            "Token program 2022"
+          ],
+          "name": "token_program_2022"
+        },
+        {
+          "docs": [
+            "The mint of token_0 vault"
+          ],
+          "name": "vault_0_mint"
+        },
+        {
+          "docs": [
+            "The mint of token_1 vault"
+          ],
+          "name": "vault_1_mint"
+        },
+        {
+          "docs": [
+            "Lp token mint"
+          ],
+          "name": "lp_mint",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "lp_token_amount",
+          "type": "u64"
+        },
+        {
+          "name": "maximum_token_0_amount",
+          "type": "u64"
+        },
+        {
+          "name": "maximum_token_1_amount",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        242,
+        35,
+        198,
+        137,
+        82,
+        225,
+        242,
+        182
+      ],
+      "docs": [
+        "Deposit lp token to the pool",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        "* `lp_token_amount` - Increased number of LPs",
+        "* `maximum_token_0_amount` -  Maximum token 0 amount to deposit, prevents excessive slippage",
+        "* `maximum_token_1_amount` - Maximum token 1 amount to deposit, prevents excessive slippage",
+        ""
+      ],
+      "name": "deposit"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "Address paying to create the pool. Can be anyone"
+          ],
+          "name": "creator",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "docs": [
+            "Which config the pool belongs to."
+          ],
+          "name": "amm_config"
+        },
+        {
+          "docs": [
+            "pool vault and lp mint authority"
+          ],
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "docs": [
+            "PDA account:",
+            "seeds = [",
+            "POOL_SEED.as_bytes(),",
+            "amm_config.key().as_ref(),",
+            "token_0_mint.key().as_ref(),",
+            "token_1_mint.key().as_ref(),",
+            "],",
+            "",
+            "Or random account: must be signed by cli"
+          ],
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "Token_0 mint, the key must smaller than token_1 mint."
+          ],
+          "name": "token_0_mint"
+        },
+        {
+          "docs": [
+            "Token_1 mint, the key must grater then token_0 mint."
+          ],
+          "name": "token_1_mint"
+        },
+        {
+          "docs": [
+            "pool lp mint"
+          ],
+          "name": "lp_mint",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  111,
+                  108,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool_state"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "docs": [
+            "payer token0 account"
+          ],
+          "name": "creator_token_0",
+          "writable": true
+        },
+        {
+          "docs": [
+            "creator token1 account"
+          ],
+          "name": "creator_token_1",
+          "writable": true
+        },
+        {
+          "docs": [
+            "creator lp token account"
+          ],
+          "name": "creator_lp_token",
+          "pda": {
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            },
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "creator"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_mint"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "name": "token_0_vault",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  111,
+                  108,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool_state"
+              },
+              {
+                "kind": "account",
+                "path": "token_0_mint"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "name": "token_1_vault",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  111,
+                  108,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool_state"
+              },
+              {
+                "kind": "account",
+                "path": "token_1_mint"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "address": "DNXgeM9EiiaAbaWvwjHj9fQQLAX5ZsfHyvmYUNRAdNC8",
+          "docs": [
+            "create pool fee account"
+          ],
+          "name": "create_pool_fee",
+          "writable": true
+        },
+        {
+          "docs": [
+            "an account to store oracle observations"
+          ],
+          "name": "observation_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  98,
+                  115,
+                  101,
+                  114,
+                  118,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool_state"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "docs": [
+            "Program to create mint account and mint tokens"
+          ],
+          "name": "token_program"
+        },
+        {
+          "docs": [
+            "Spl token program or token program 2022"
+          ],
+          "name": "token_0_program"
+        },
+        {
+          "docs": [
+            "Spl token program or token program 2022"
+          ],
+          "name": "token_1_program"
+        },
+        {
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+          "docs": [
+            "Program to create an ATA for receiving position NFT"
+          ],
+          "name": "associated_token_program"
+        },
+        {
+          "address": "11111111111111111111111111111111",
+          "docs": [
+            "To create a new program account"
+          ],
+          "name": "system_program"
+        },
+        {
+          "address": "SysvarRent111111111111111111111111111111111",
+          "docs": [
+            "Sysvar for program account"
+          ],
+          "name": "rent"
+        }
+      ],
+      "args": [
+        {
+          "name": "init_amount_0",
+          "type": "u64"
+        },
+        {
+          "name": "init_amount_1",
+          "type": "u64"
+        },
+        {
+          "name": "open_time",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "docs": [
+        "Creates a pool for the given token pair and the initial price",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        "* `init_amount_0` - the initial amount_0 to deposit",
+        "* `init_amount_1` - the initial amount_1 to deposit",
+        "* `open_time` - the timestamp allowed for swap",
+        ""
+      ],
+      "name": "initialize"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "Address paying to create the pool. Can be anyone"
+          ],
+          "name": "payer",
+          "signer": true,
+          "writable": true
+        },
+        {
+          "name": "creator"
+        },
+        {
+          "docs": [
+            "Which config the pool belongs to."
+          ],
+          "name": "amm_config"
+        },
+        {
+          "docs": [
+            "pool vault and lp mint authority"
+          ],
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "docs": [
+            "PDA account:",
+            "seeds = [",
+            "POOL_SEED.as_bytes(),",
+            "amm_config.key().as_ref(),",
+            "token_0_mint.key().as_ref(),",
+            "token_1_mint.key().as_ref(),",
+            "],",
+            "",
+            "Or random account: must be signed by cli"
+          ],
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "Token_0 mint, the key must smaller than token_1 mint."
+          ],
+          "name": "token_0_mint"
+        },
+        {
+          "docs": [
+            "Token_1 mint, the key must grater then token_0 mint."
+          ],
+          "name": "token_1_mint"
+        },
+        {
+          "docs": [
+            "pool lp mint"
+          ],
+          "name": "lp_mint",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  111,
+                  108,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool_state"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "docs": [
+            "payer token0 account"
+          ],
+          "name": "payer_token_0",
+          "writable": true
+        },
+        {
+          "docs": [
+            "payer token1 account"
+          ],
+          "name": "payer_token_1",
+          "writable": true
+        },
+        {
+          "docs": [
+            "payer lp token account"
+          ],
+          "name": "payer_lp_token",
+          "pda": {
+            "program": {
+              "kind": "const",
+              "value": [
+                140,
+                151,
+                37,
+                143,
+                78,
+                36,
+                137,
+                241,
+                187,
+                61,
+                16,
+                41,
+                20,
+                142,
+                13,
+                131,
+                11,
+                90,
+                19,
+                153,
+                218,
+                255,
+                16,
+                132,
+                4,
+                142,
+                123,
+                216,
+                219,
+                233,
+                248,
+                89
+              ]
+            },
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "payer"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6,
+                  221,
+                  246,
+                  225,
+                  215,
+                  101,
+                  161,
+                  147,
+                  217,
+                  203,
+                  225,
+                  70,
+                  206,
+                  235,
+                  121,
+                  172,
+                  28,
+                  180,
+                  133,
+                  237,
+                  95,
+                  91,
+                  55,
+                  145,
+                  58,
+                  140,
+                  245,
+                  133,
+                  126,
+                  255,
+                  0,
+                  169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "lp_mint"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "name": "token_0_vault",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  111,
+                  108,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool_state"
+              },
+              {
+                "kind": "account",
+                "path": "token_0_mint"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "name": "token_1_vault",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  111,
+                  111,
+                  108,
+                  95,
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool_state"
+              },
+              {
+                "kind": "account",
+                "path": "token_1_mint"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "address": "DNXgeM9EiiaAbaWvwjHj9fQQLAX5ZsfHyvmYUNRAdNC8",
+          "docs": [
+            "create pool fee account"
+          ],
+          "name": "create_pool_fee",
+          "writable": true
+        },
+        {
+          "docs": [
+            "an account to store oracle observations"
+          ],
+          "name": "observation_state",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  111,
+                  98,
+                  115,
+                  101,
+                  114,
+                  118,
+                  97,
+                  116,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "pool_state"
+              }
+            ]
+          },
+          "writable": true
+        },
+        {
+          "name": "permission",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  112,
+                  101,
+                  114,
+                  109,
+                  105,
+                  115,
+                  115,
+                  105,
+                  111,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "payer"
+              }
+            ]
+          }
+        },
+        {
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "docs": [
+            "Program to create mint account and mint tokens"
+          ],
+          "name": "token_program"
+        },
+        {
+          "docs": [
+            "Spl token program or token program 2022"
+          ],
+          "name": "token_0_program"
+        },
+        {
+          "docs": [
+            "Spl token program or token program 2022"
+          ],
+          "name": "token_1_program"
+        },
+        {
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+          "docs": [
+            "Program to create an ATA for receiving position NFT"
+          ],
+          "name": "associated_token_program"
+        },
+        {
+          "address": "11111111111111111111111111111111",
+          "docs": [
+            "To create a new program account"
+          ],
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "init_amount_0",
+          "type": "u64"
+        },
+        {
+          "name": "init_amount_1",
+          "type": "u64"
+        },
+        {
+          "name": "open_time",
+          "type": "u64"
+        },
+        {
+          "name": "creator_fee_on",
+          "type": {
+            "defined": {
+              "name": "CreatorFeeOn"
+            }
+          }
+        }
+      ],
+      "discriminator": [
+        63,
+        55,
+        254,
+        65,
+        49,
+        178,
+        89,
+        121
+      ],
+      "docs": [
+        "Create a pool with permission",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        "* `init_amount_0` - the initial amount_0 to deposit",
+        "* `init_amount_1` - the initial amount_1 to deposit",
+        "* `open_time` - the timestamp allowed for swap",
+        "* `creator_fee_on` - creator fee model, 0：both token0 and token1 (depends on the input), 1: only token0, 2: only token1",
+        ""
+      ],
+      "name": "initialize_with_permission"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "The user performing the swap"
+          ],
+          "name": "payer",
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "docs": [
+            "The factory state to read protocol fees"
+          ],
+          "name": "amm_config"
+        },
+        {
+          "docs": [
+            "The program account of the pool in which the swap will be performed"
+          ],
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The user token account for input token"
+          ],
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The user token account for output token"
+          ],
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The vault token account for input token"
+          ],
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The vault token account for output token"
+          ],
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "SPL program for input token transfers"
+          ],
+          "name": "input_token_program"
+        },
+        {
+          "docs": [
+            "SPL program for output token transfers"
+          ],
+          "name": "output_token_program"
+        },
+        {
+          "docs": [
+            "The mint of input token"
+          ],
+          "name": "input_token_mint"
+        },
+        {
+          "docs": [
+            "The mint of output token"
+          ],
+          "name": "output_token_mint"
+        },
+        {
+          "docs": [
+            "The program account for the most recent oracle observation"
+          ],
+          "name": "observation_state",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "minimum_amount_out",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        143,
+        190,
+        90,
+        218,
+        196,
+        30,
+        51,
+        222
+      ],
+      "docs": [
+        "Swap the tokens in the pool base input amount",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        "* `amount_in` -  input amount to transfer, output to DESTINATION is based on the exchange rate",
+        "* `minimum_amount_out` -  Minimum amount of output token, prevents excessive slippage",
+        ""
+      ],
+      "name": "swap_base_input"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "The user performing the swap"
+          ],
+          "name": "payer",
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "docs": [
+            "The factory state to read protocol fees"
+          ],
+          "name": "amm_config"
+        },
+        {
+          "docs": [
+            "The program account of the pool in which the swap will be performed"
+          ],
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The user token account for input token"
+          ],
+          "name": "input_token_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The user token account for output token"
+          ],
+          "name": "output_token_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The vault token account for input token"
+          ],
+          "name": "input_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The vault token account for output token"
+          ],
+          "name": "output_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "SPL program for input token transfers"
+          ],
+          "name": "input_token_program"
+        },
+        {
+          "docs": [
+            "SPL program for output token transfers"
+          ],
+          "name": "output_token_program"
+        },
+        {
+          "docs": [
+            "The mint of input token"
+          ],
+          "name": "input_token_mint"
+        },
+        {
+          "docs": [
+            "The mint of output token"
+          ],
+          "name": "output_token_mint"
+        },
+        {
+          "docs": [
+            "The program account for the most recent oracle observation"
+          ],
+          "name": "observation_state",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "max_amount_in",
+          "type": "u64"
+        },
+        {
+          "name": "amount_out",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        55,
+        217,
+        98,
+        86,
+        163,
+        74,
+        180,
+        173
+      ],
+      "docs": [
+        "Swap the tokens in the pool base output amount",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        "* `max_amount_in` -  input amount prevents excessive slippage",
+        "* `amount_out` -  amount of output token",
+        ""
+      ],
+      "name": "swap_base_output"
+    },
+    {
+      "accounts": [
+        {
+          "address": "GThUX1Atko4tqhN2NaiTazWSeFWMuiUvfFnyJyUghFMJ",
+          "docs": [
+            "The amm config owner or admin"
+          ],
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "docs": [
+            "Amm config account to be changed"
+          ],
+          "name": "amm_config",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "param",
+          "type": "u8"
+        },
+        {
+          "name": "value",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        49,
+        60,
+        174,
+        136,
+        154,
+        28,
+        116,
+        200
+      ],
+      "docs": [
+        "Updates the owner of the amm config",
+        "Must be called by the current owner or admin",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        "* `trade_fee_rate`- The new trade fee rate of amm config, be set when `param` is 0",
+        "* `protocol_fee_rate`- The new protocol fee rate of amm config, be set when `param` is 1",
+        "* `fund_fee_rate`- The new fund fee rate of amm config, be set when `param` is 2",
+        "* `new_owner`- The config's new owner, be set when `param` is 3",
+        "* `new_fund_owner`- The config's new fund owner, be set when `param` is 4",
+        "* `param`- The value can be 0 | 1 | 2 | 3 | 4, otherwise will report a error",
+        ""
+      ],
+      "name": "update_amm_config"
+    },
+    {
+      "accounts": [
+        {
+          "address": "GThUX1Atko4tqhN2NaiTazWSeFWMuiUvfFnyJyUghFMJ",
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "pool_state",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "status",
+          "type": "u8"
+        }
+      ],
+      "discriminator": [
+        130,
+        87,
+        108,
+        6,
+        46,
+        224,
+        117,
+        123
+      ],
+      "docs": [
+        "Update pool status for given value",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        "* `status` - The value of status",
+        ""
+      ],
+      "name": "update_pool_status"
+    },
+    {
+      "accounts": [
+        {
+          "docs": [
+            "Pays to mint the position"
+          ],
+          "name": "owner",
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116,
+                  95,
+                  97,
+                  110,
+                  100,
+                  95,
+                  108,
+                  112,
+                  95,
+                  109,
+                  105,
+                  110,
+                  116,
+                  95,
+                  97,
+                  117,
+                  116,
+                  104,
+                  95,
+                  115,
+                  101,
+                  101,
+                  100
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "docs": [
+            "Pool state account"
+          ],
+          "name": "pool_state",
+          "writable": true
+        },
+        {
+          "docs": [
+            "Owner lp token account"
+          ],
+          "name": "owner_lp_token",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The token account for receive token_0,"
+          ],
+          "name": "token_0_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The token account for receive token_1"
+          ],
+          "name": "token_1_account",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_0"
+          ],
+          "name": "token_0_vault",
+          "writable": true
+        },
+        {
+          "docs": [
+            "The address that holds pool tokens for token_1"
+          ],
+          "name": "token_1_vault",
+          "writable": true
+        },
+        {
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "docs": [
+            "token Program"
+          ],
+          "name": "token_program"
+        },
+        {
+          "address": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "docs": [
+            "Token program 2022"
+          ],
+          "name": "token_program_2022"
+        },
+        {
+          "docs": [
+            "The mint of token_0 vault"
+          ],
+          "name": "vault_0_mint"
+        },
+        {
+          "docs": [
+            "The mint of token_1 vault"
+          ],
+          "name": "vault_1_mint"
+        },
+        {
+          "docs": [
+            "Pool lp token mint"
+          ],
+          "name": "lp_mint",
+          "writable": true
+        },
+        {
+          "address": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+          "docs": [
+            "memo program"
+          ],
+          "name": "memo_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "lp_token_amount",
+          "type": "u64"
+        },
+        {
+          "name": "minimum_token_0_amount",
+          "type": "u64"
+        },
+        {
+          "name": "minimum_token_1_amount",
+          "type": "u64"
+        }
+      ],
+      "discriminator": [
+        183,
+        18,
+        70,
+        156,
+        148,
+        109,
+        161,
+        34
+      ],
+      "docs": [
+        "Withdraw lp for token0 and token1",
+        "",
+        "# Arguments",
+        "",
+        "* `ctx`- The context of accounts",
+        "* `lp_token_amount` - Amount of pool tokens to burn. User receives an output of token a and b based on the percentage of the pool tokens that are returned.",
+        "* `minimum_token_0_amount` -  Minimum amount of token 0 to receive, prevents excessive slippage",
+        "* `minimum_token_1_amount` -  Minimum amount of token 1 to receive, prevents excessive slippage",
+        ""
+      ],
+      "name": "withdraw"
+    }
+  ],
+  "metadata": {
+    "description": "Raydium constant product AMM, supports Token2022 and without Openbook",
+    "name": "raydium_cp_swap",
+    "spec": "0.1.0",
+    "version": "0.2.0"
+  },
+  "types": [
+    {
+      "docs": [
+        "Holds the current owner of the factory"
+      ],
+      "name": "AmmConfig",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Bump to identify PDA"
+            ],
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Status to control if new pool can be create"
+            ],
+            "name": "disable_create_pool",
+            "type": "bool"
+          },
+          {
+            "docs": [
+              "Config index"
+            ],
+            "name": "index",
+            "type": "u16"
+          },
+          {
+            "docs": [
+              "The trade fee, denominated in hundredths of a bip (10^-6)"
+            ],
+            "name": "trade_fee_rate",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "The protocol fee"
+            ],
+            "name": "protocol_fee_rate",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "The fund fee, denominated in hundredths of a bip (10^-6)"
+            ],
+            "name": "fund_fee_rate",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Fee for create a new pool"
+            ],
+            "name": "create_pool_fee",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Address of the protocol fee owner"
+            ],
+            "name": "protocol_owner",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "Address of the fund fee owner"
+            ],
+            "name": "fund_owner",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "The pool creator fee, denominated in hundredths of a bip (10^-6)"
+            ],
+            "name": "creator_fee_rate",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "padding"
+            ],
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                15
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "CreatorFeeOn",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "BothToken"
+          },
+          {
+            "name": "OnlyToken0"
+          },
+          {
+            "name": "OnlyToken1"
+          }
+        ]
+      }
+    },
+    {
+      "docs": [
+        "Emitted when deposit and withdraw"
+      ],
+      "name": "LpChangeEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": "pubkey"
+          },
+          {
+            "name": "lp_amount_before",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "pool vault sub trade fees"
+            ],
+            "name": "token_0_vault_before",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "pool vault sub trade fees"
+            ],
+            "name": "token_1_vault_before",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "calculate result without transfer fee"
+            ],
+            "name": "token_0_amount",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "calculate result without transfer fee"
+            ],
+            "name": "token_1_amount",
+            "type": "u64"
+          },
+          {
+            "name": "token_0_transfer_fee",
+            "type": "u64"
+          },
+          {
+            "name": "token_1_transfer_fee",
+            "type": "u64"
+          },
+          {
+            "name": "change_type",
+            "type": "u8"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "The element of observations in ObservationState"
+      ],
+      "name": "Observation",
+      "repr": {
+        "kind": "c",
+        "packed": true
+      },
+      "serialization": "bytemuckunsafe",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "The block timestamp of the observation"
+            ],
+            "name": "block_timestamp",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "the cumulative of token0 price during the duration time, Q32.32, the remaining 64 bit for overflow"
+            ],
+            "name": "cumulative_token_0_price_x32",
+            "type": "u128"
+          },
+          {
+            "docs": [
+              "the cumulative of token1 price during the duration time, Q32.32, the remaining 64 bit for overflow"
+            ],
+            "name": "cumulative_token_1_price_x32",
+            "type": "u128"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ObservationState",
+      "repr": {
+        "kind": "c",
+        "packed": true
+      },
+      "serialization": "bytemuckunsafe",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Whether the ObservationState is initialized"
+            ],
+            "name": "initialized",
+            "type": "bool"
+          },
+          {
+            "docs": [
+              "the most-recently updated index of the observations array"
+            ],
+            "name": "observation_index",
+            "type": "u16"
+          },
+          {
+            "name": "pool_id",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "observation array"
+            ],
+            "name": "observations",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "Observation"
+                  }
+                },
+                100
+              ]
+            }
+          },
+          {
+            "docs": [
+              "padding for feature update"
+            ],
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                4
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "Holds the current owner of the factory"
+      ],
+      "name": "Permission",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "authority"
+            ],
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "padding"
+            ],
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                30
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "PoolState",
+      "repr": {
+        "kind": "c",
+        "packed": true
+      },
+      "serialization": "bytemuckunsafe",
+      "type": {
+        "fields": [
+          {
+            "docs": [
+              "Which config the pool belongs"
+            ],
+            "name": "amm_config",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "pool creator"
+            ],
+            "name": "pool_creator",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "Token A"
+            ],
+            "name": "token_0_vault",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "Token B"
+            ],
+            "name": "token_1_vault",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "Pool tokens are issued when A or B tokens are deposited.",
+              "Pool tokens can be withdrawn back to the original A or B token."
+            ],
+            "name": "lp_mint",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "Mint information for token A"
+            ],
+            "name": "token_0_mint",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "Mint information for token B"
+            ],
+            "name": "token_1_mint",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "token_0 program"
+            ],
+            "name": "token_0_program",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "token_1 program"
+            ],
+            "name": "token_1_program",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "observation account to store oracle data"
+            ],
+            "name": "observation_key",
+            "type": "pubkey"
+          },
+          {
+            "name": "auth_bump",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "Bitwise representation of the state of the pool",
+              "bit0, 1: disable deposit(value is 1), 0: normal",
+              "bit1, 1: disable withdraw(value is 2), 0: normal",
+              "bit2, 1: disable swap(value is 4), 0: normal"
+            ],
+            "name": "status",
+            "type": "u8"
+          },
+          {
+            "name": "lp_mint_decimals",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "mint0 and mint1 decimals"
+            ],
+            "name": "mint_0_decimals",
+            "type": "u8"
+          },
+          {
+            "name": "mint_1_decimals",
+            "type": "u8"
+          },
+          {
+            "docs": [
+              "True circulating supply without burns and lock ups"
+            ],
+            "name": "lp_supply",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "The amounts of token_0 and token_1 that are owed to the liquidity provider."
+            ],
+            "name": "protocol_fees_token_0",
+            "type": "u64"
+          },
+          {
+            "name": "protocol_fees_token_1",
+            "type": "u64"
+          },
+          {
+            "name": "fund_fees_token_0",
+            "type": "u64"
+          },
+          {
+            "name": "fund_fees_token_1",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "The timestamp allowed for swap in the pool."
+            ],
+            "name": "open_time",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "recent epoch"
+            ],
+            "name": "recent_epoch",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Creator fee collect mode",
+              "0: both token_0 and token_1 can be used as trade fees. It depends on what the input token is when swapping",
+              "1: only token_0 as trade fee",
+              "2: only token_1 as trade fee"
+            ],
+            "name": "creator_fee_on",
+            "type": "u8"
+          },
+          {
+            "name": "enable_creator_fee",
+            "type": "bool"
+          },
+          {
+            "name": "padding1",
+            "type": {
+              "array": [
+                "u8",
+                6
+              ]
+            }
+          },
+          {
+            "name": "creator_fees_token_0",
+            "type": "u64"
+          },
+          {
+            "name": "creator_fees_token_1",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "padding for future updates"
+            ],
+            "name": "padding",
+            "type": {
+              "array": [
+                "u64",
+                28
+              ]
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "docs": [
+        "Emitted when swap"
+      ],
+      "name": "SwapEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "pool_id",
+            "type": "pubkey"
+          },
+          {
+            "docs": [
+              "pool vault sub trade fees"
+            ],
+            "name": "input_vault_before",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "pool vault sub trade fees"
+            ],
+            "name": "output_vault_before",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "calculate result without transfer fee"
+            ],
+            "name": "input_amount",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "calculate result without transfer fee"
+            ],
+            "name": "output_amount",
+            "type": "u64"
+          },
+          {
+            "name": "input_transfer_fee",
+            "type": "u64"
+          },
+          {
+            "name": "output_transfer_fee",
+            "type": "u64"
+          },
+          {
+            "name": "base_input",
+            "type": "bool"
+          },
+          {
+            "name": "input_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "output_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "trade_fee",
+            "type": "u64"
+          },
+          {
+            "docs": [
+              "Amount of fee tokens going to creator"
+            ],
+            "name": "creator_fee",
+            "type": "u64"
+          },
+          {
+            "name": "creator_fee_on_input",
+            "type": "bool"
+          }
+        ],
+        "kind": "struct"
+      }
+    }
+  ]
+}

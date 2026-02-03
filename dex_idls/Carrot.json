@@ -1,0 +1,4336 @@
+{
+  "accounts": [
+    {
+      "name": "Vault",
+      "type": {
+        "fields": [
+          {
+            "name": "authority",
+            "type": "publicKey"
+          },
+          {
+            "name": "shares",
+            "type": "publicKey"
+          },
+          {
+            "name": "fee",
+            "type": {
+              "defined": "Fee"
+            }
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "assetIndex",
+            "type": "u16"
+          },
+          {
+            "name": "strategyIndex",
+            "type": "u16"
+          },
+          {
+            "name": "assets",
+            "type": {
+              "vec": {
+                "defined": "Asset"
+              }
+            }
+          },
+          {
+            "name": "strategies",
+            "type": {
+              "vec": {
+                "defined": "StrategyRecord"
+              }
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Strategy",
+      "type": {
+        "fields": [
+          {
+            "name": "metadata",
+            "type": {
+              "defined": "StrategyMetadata"
+            }
+          },
+          {
+            "name": "strategyType",
+            "type": {
+              "defined": "StrategyType"
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "msg": "Asset Already Exists",
+      "name": "AssetAlreadyExists"
+    },
+    {
+      "code": 6001,
+      "msg": "Asset Not Found",
+      "name": "AssetNotFound"
+    },
+    {
+      "code": 6002,
+      "msg": "Oracle Not Found",
+      "name": "OracleNotFound"
+    },
+    {
+      "code": 6003,
+      "msg": "Oracle Returned Stale Price",
+      "name": "OracleStalePrice"
+    },
+    {
+      "code": 6004,
+      "msg": "Strategy Not Found",
+      "name": "StrategyNotFound"
+    },
+    {
+      "code": 6005,
+      "msg": "Ata Not Found",
+      "name": "AtaNotFound"
+    },
+    {
+      "code": 6006,
+      "msg": "Strategy Already Exists",
+      "name": "StrategyAlreadyExists"
+    },
+    {
+      "code": 6007,
+      "msg": "Invalid Strategy Type",
+      "name": "InvalidStrategyType"
+    },
+    {
+      "code": 6008,
+      "msg": "Strategy Balance Calculation Error",
+      "name": "StrategyBalanceCalculationError"
+    },
+    {
+      "code": 6009,
+      "msg": "Vault is Paused",
+      "name": "VaultIsPaused"
+    },
+    {
+      "code": 6010,
+      "msg": "Invalid Vault Authority",
+      "name": "InvalidVaultAuthority"
+    },
+    {
+      "code": 6011,
+      "msg": "Account Migration Error",
+      "name": "MigrationError"
+    },
+    {
+      "code": 6012,
+      "msg": "Invalid Price Confidence Interval",
+      "name": "InvalidPriceConf"
+    },
+    {
+      "code": 6013,
+      "msg": "Invalid Strategy Accounts",
+      "name": "InvalidStrategyAccounts"
+    },
+    {
+      "code": 6014,
+      "msg": "Strategy Not Empty",
+      "name": "StrategyNotEmpty"
+    },
+    {
+      "code": 6015,
+      "msg": "Asset Not Empty",
+      "name": "AssetNotEmpty"
+    },
+    {
+      "code": 6016,
+      "msg": "Invalid Fee Bps",
+      "name": "InvalidFeeBps"
+    },
+    {
+      "code": 6017,
+      "msg": "Invalid Return Data",
+      "name": "InvalidReturnData"
+    },
+    {
+      "code": 6018,
+      "msg": "Invalid Coin Supply",
+      "name": "InvalidCoinSupply"
+    },
+    {
+      "code": 6019,
+      "msg": "Invalid NAV",
+      "name": "InvalidNav"
+    },
+    {
+      "code": 6020,
+      "msg": "Math Error",
+      "name": "MathError"
+    },
+    {
+      "code": 6021,
+      "msg": "Chest Low Balance",
+      "name": "ChestLowBalance"
+    }
+  ],
+  "instructions": [
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "shares"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "InitVaultArgs"
+          }
+        }
+      ],
+      "name": "initVault"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "newAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "oldAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [],
+      "name": "transferVaultAuthority"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "PauseVaultArgs"
+          }
+        }
+      ],
+      "name": "pauseVault"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [],
+      "name": "migrateVaultAccount"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "shares"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "sharesDestination"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [],
+      "name": "distributeVaultFees"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "UpdateFeeArgs"
+          }
+        }
+      ],
+      "name": "updateFee"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "shares"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userSharesAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "asset"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userAssetAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "user"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "sharesTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "IssueArgs"
+          }
+        }
+      ],
+      "name": "issue"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "shares"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userSharesAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "asset"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userAssetAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "user"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "sharesTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "RedeemArgs"
+          }
+        }
+      ],
+      "name": "redeem"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [],
+      "name": "addAsset"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "UpdateAssetArgs"
+          }
+        }
+      ],
+      "name": "updateAsset"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "asset"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        }
+      ],
+      "args": [],
+      "name": "removeAsset"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [],
+      "name": "removeStrategy"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "UpdateStrategyArgs"
+          }
+        }
+      ],
+      "name": "updateStrategy"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "marginfiAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiBank"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiBankLiquidityVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiBankLiquidityVaultAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "MarginfiSupplyStrategyInitArgs"
+          }
+        }
+      ],
+      "name": "marginfiSupplyStrategyInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiBank"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiBankLiquidityVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "MarginfiSupplyStrategyDepositArgs"
+          }
+        }
+      ],
+      "name": "marginfiSupplyStrategyDeposit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiBank"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiBankLiquidityVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiBankLiquidityVaultAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "MarginfiSupplyStrategyWithdrawArgs"
+          }
+        }
+      ],
+      "name": "marginfiSupplyStrategyWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiBank"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "marginfiEmissionsVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiEmissionsAuth"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "marginfiProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [],
+      "name": "marginfiSupplyStrategyClaimEmissions"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "assetPythOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "scopePrices"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userMetadata"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "obligation"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "obligationFarm"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "lendingMarket"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "lendingMarketAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveLiquiditySupply"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveDestinationDepositCollateral"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveFarmState"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "kfarmsProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "KlendSupplyStrategyInitArgs"
+          }
+        }
+      ],
+      "name": "klendSupplyStrategyInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveLiquiditySupply"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveDestinationDepositCollateral"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultCollateralAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarket"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "lendingMarketAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "oracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "scopePrices"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "obligation"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "instructionsSysvar"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "collateralTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "kfarmsProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "KlendSupplyStrategyDepositArgs"
+          }
+        }
+      ],
+      "name": "klendSupplyStrategyDeposit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveLiquiditySupply"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveDestinationDepositCollateral"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultCollateralAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarket"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "lendingMarketAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "oracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "scopePrices"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "obligation"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "instructionsSysvar"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "collateralTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetTokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "klendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "kfarmsProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "KlendSupplyStrategyWithdrawArgs"
+          }
+        }
+      ],
+      "name": "klendSupplyStrategyWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "scopePrices"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "userState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "farmState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "kfarmsGlobalConfig"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "kfarmsVaultsAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "kfarmsRewardsVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "kfarmsRewardsTreasuryVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "kfarmsProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [],
+      "name": "klendSupplyStrategyClaimEmissions"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetPythOracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetSwitchboardOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "obligation"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarketAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveLiquiditySupply"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "reserveDepositCollateralAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "solendProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "SolendSupplyStrategyInitArgs"
+          }
+        }
+      ],
+      "name": "solendSupplyStrategyInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetPythOracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetSwitchboardOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "obligation"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "lendingMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarketAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveLiquiditySupply"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultCollateralAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "depositCollateralAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "solendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "SolendSupplyStrategyDepositArgs"
+          }
+        }
+      ],
+      "name": "solendSupplyStrategyDeposit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetPythOracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetSwitchboardOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "obligation"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "lendingMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "lendingMarketAuthority"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserve"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveLiquiditySupply"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "reserveCollateralMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultCollateralAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "withdrawCollateralAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "solendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "SolendSupplyStrategyWithdrawArgs"
+          }
+        }
+      ],
+      "name": "solendSupplyStrategyWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mangoGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "mangoAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mangoBank"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mangoVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "pythOracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "switchboardOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mangoProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "MangoSupplyStrategyInitArgs"
+          }
+        }
+      ],
+      "name": "mangoSupplyStrategyInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mangoGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "mangoAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "mangoBank"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "mangoVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "pythOracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "switchboardOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mangoProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "MangoSupplyStrategyDepositArgs"
+          }
+        }
+      ],
+      "name": "mangoSupplyStrategyDeposit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mangoGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "mangoAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "mangoBank"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "mangoVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "pythOracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "switchboardOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "mangoProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "MangoSupplyStrategyWithdrawArgs"
+          }
+        }
+      ],
+      "name": "mangoSupplyStrategyWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUser"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUserStats"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftSigner"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftSpotMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftPerpMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftSpotMarketVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "spotPythOracle"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "perpPythOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "DriftSupplyStrategyInitArgs"
+          }
+        }
+      ],
+      "name": "driftSupplyStrategyInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUser"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUserStats"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarket"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarketVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "DriftSupplyStrategyDepositArgs"
+          }
+        }
+      ],
+      "name": "driftSupplyStrategyDeposit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUser"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUserStats"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarketVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftSigner"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "DriftSupplyStrategyWithdrawArgs"
+          }
+        }
+      ],
+      "name": "driftSupplyStrategyWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUserStats"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftSpotMarketVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftInsuranceFundStake"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftInsuranceFundVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSigner"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "rent"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "DriftInsuranceFundStrategyInitArgs"
+          }
+        }
+      ],
+      "name": "driftInsuranceFundStrategyInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUserStats"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarket"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarketVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftInsuranceFundStake"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftInsuranceFundVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSigner"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "DriftInsuranceFundStrategyStakeArgs"
+          }
+        }
+      ],
+      "name": "driftInsuranceFundStrategyStake"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUserStats"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarket"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftInsuranceFundStake"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftInsuranceFundVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "DriftInsuranceFundStrategyUnstakeArgs"
+          }
+        }
+      ],
+      "name": "driftInsuranceFundStrategyUnstake"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUserStats"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarket"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftInsuranceFundStake"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftInsuranceFundVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSigner"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [],
+      "name": "driftInsuranceFundStrategyWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "clendAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendBank"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendBankLiquidityVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendBankLiquidityVaultAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "ClendSupplyStrategyInitArgs"
+          }
+        }
+      ],
+      "name": "clendSupplyStrategyInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "clendAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "clendBank"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "clendBankLiquidityVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "ClendSupplyStrategyDepositArgs"
+          }
+        }
+      ],
+      "name": "clendSupplyStrategyDeposit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendGroup"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "clendAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "clendBank"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "clendBankLiquidityVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "clendBankLiquidityVaultAuthority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendOracle"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "clendProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "ClendSupplyStrategyWithdrawArgs"
+          }
+        }
+      ],
+      "name": "clendSupplyStrategyWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetTokenAccount"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "chest"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "coinTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "ChestStrategyInitArgs"
+          }
+        }
+      ],
+      "name": "chestStrategyInit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "chest"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "coin"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "chestAssetReserve"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftVaultDepositor"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftVaultTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUser"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUserStats"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarket"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftSpotMarketVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftState"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultCoinTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "chestProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "driftVaultsProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "ChestStrategyDepositArgs"
+          }
+        }
+      ],
+      "name": "chestStrategyDeposit"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "chest"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "coin"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "chestCoinReserve"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "redemptionRequest"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftVaultDepositor"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUser"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetDestination"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultCoinTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "chestProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "ChestStrategyRequestWithdrawArgs"
+          }
+        }
+      ],
+      "name": "chestStrategyRequestWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategy"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "assetMint"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultAssetAta"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "strategyAssetTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "chest"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "chestRedemptionRequest"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "coin"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vaultCoinTokenAccount"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftVault"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftVaultDepositor"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "driftUser"
+        },
+        {
+          "isMut": true,
+          "isSigner": true,
+          "name": "authority"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "chestProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [
+        {
+          "name": "args",
+          "type": {
+            "defined": "ChestStrategyWithdrawArgs"
+          }
+        }
+      ],
+      "name": "chestStrategyWithdraw"
+    },
+    {
+      "accounts": [
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "vault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "shares"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "feed"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "queue"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "programState"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "recentSlothashes"
+        },
+        {
+          "isMut": true,
+          "isSigner": false,
+          "name": "rewardVault"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenMint"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "switchboardOnDemandProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "tokenProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "systemProgram"
+        },
+        {
+          "isMut": false,
+          "isSigner": false,
+          "name": "logProgram"
+        }
+      ],
+      "args": [],
+      "name": "updateSwitchboardOraclePrice"
+    }
+  ],
+  "name": "carrot",
+  "types": [
+    {
+      "name": "ChestStrategyDepositArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "failOnLowBalance",
+            "type": "bool"
+          },
+          {
+            "name": "preserveRecordedBalance",
+            "type": "bool"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ChestStrategyInitArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ChestStrategyRequestWithdrawArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "assetAmount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ChestStrategyWithdrawArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "failOnLowBalance",
+            "type": "bool"
+          },
+          {
+            "name": "preserveRecordedBalance",
+            "type": "bool"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ClendSupplyStrategyDepositArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ClendSupplyStrategyInitArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "ClendSupplyStrategyWithdrawArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "DriftInsuranceFundStrategyInitArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "driftMarketIndex",
+            "type": "u16"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "DriftInsuranceFundStrategyStakeArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "DriftInsuranceFundStrategyUnstakeArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "DriftSupplyStrategyDepositArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "DriftSupplyStrategyInitArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "driftSubAccountId",
+            "type": "u16"
+          },
+          {
+            "name": "driftMarketIndex",
+            "type": "u16"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "DriftSupplyStrategyWithdrawArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "InitVaultArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "redemptionFeeBps",
+            "type": "u16"
+          },
+          {
+            "name": "managementFeeBps",
+            "type": "u16"
+          },
+          {
+            "name": "performanceFeeBps",
+            "type": "u16"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "IssueArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "KlendSupplyStrategyDepositArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "KlendSupplyStrategyInitArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "KlendSupplyStrategyWithdrawArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "MangoSupplyStrategyDepositArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "MangoSupplyStrategyInitArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "MangoSupplyStrategyWithdrawArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "MarginfiSupplyStrategyDepositArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "MarginfiSupplyStrategyInitArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "MarginfiSupplyStrategyWithdrawArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "PauseVaultArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "paused",
+            "type": "bool"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "RedeemArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "SolendSupplyStrategyDepositArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "SolendSupplyStrategyInitArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "SolendSupplyStrategyWithdrawArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "UpdateAssetArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "assetId",
+            "type": "u16"
+          },
+          {
+            "name": "assetNewOracle",
+            "type": "publicKey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "UpdateFeeArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "newRedemptionFeeBps",
+            "type": {
+              "option": "u16"
+            }
+          },
+          {
+            "name": "newManagementFeeBps",
+            "type": {
+              "option": "u16"
+            }
+          },
+          {
+            "name": "newPerformanceFeeBps",
+            "type": {
+              "option": "u16"
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "UpdateStrategyArgs",
+      "type": {
+        "fields": [
+          {
+            "name": "newStrategyType",
+            "type": {
+              "defined": "StrategyType"
+            }
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Asset",
+      "type": {
+        "fields": [
+          {
+            "name": "assetId",
+            "type": "u16"
+          },
+          {
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "ata",
+            "type": "publicKey"
+          },
+          {
+            "name": "oracle",
+            "type": "publicKey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "StrategyRecord",
+      "type": {
+        "fields": [
+          {
+            "name": "strategyId",
+            "type": "u16"
+          },
+          {
+            "name": "assetId",
+            "type": "u16"
+          },
+          {
+            "name": "balance",
+            "type": "u64"
+          },
+          {
+            "name": "netEarnings",
+            "type": "i64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "StrategyMetadata",
+      "type": {
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "strategyId",
+            "type": "u16"
+          },
+          {
+            "name": "assetMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "vault",
+            "type": "publicKey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "Fee",
+      "type": {
+        "fields": [
+          {
+            "name": "redemptionFeeBps",
+            "type": "u16"
+          },
+          {
+            "name": "redemptionFeeAccumulated",
+            "type": "u64"
+          },
+          {
+            "name": "managementFeeBps",
+            "type": "u16"
+          },
+          {
+            "name": "managementFeeLastUpdate",
+            "type": "i64"
+          },
+          {
+            "name": "managementFeeAccumulated",
+            "type": "u64"
+          },
+          {
+            "name": "performanceFeeBps",
+            "type": "u16"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "IssueEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "depositor",
+            "type": "publicKey"
+          },
+          {
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "sharesMinted",
+            "type": "u64"
+          },
+          {
+            "name": "managementFee",
+            "type": "u64"
+          },
+          {
+            "name": "tvl",
+            "type": "u128"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "RedeemEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "withdrawer",
+            "type": "publicKey"
+          },
+          {
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "sharesBurned",
+            "type": "u64"
+          },
+          {
+            "name": "redemptionFee",
+            "type": "u64"
+          },
+          {
+            "name": "managementFee",
+            "type": "u64"
+          },
+          {
+            "name": "tvl",
+            "type": "u128"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "StrategyDepositEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "strategy",
+            "type": "publicKey"
+          },
+          {
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "depositAmount",
+            "type": "u64"
+          },
+          {
+            "name": "netEarnings",
+            "type": "i64"
+          },
+          {
+            "name": "strategyBalance",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "StrategyWithdrawEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "strategy",
+            "type": "publicKey"
+          },
+          {
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "withdrawAmount",
+            "type": "u64"
+          },
+          {
+            "name": "netEarnings",
+            "type": "i64"
+          },
+          {
+            "name": "strategyBalance",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "StrategyClaimEmissionsEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "strategy",
+            "type": "publicKey"
+          },
+          {
+            "name": "mint",
+            "type": "publicKey"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "DistributeVaultFeesEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "managementFeeAmountDistributed",
+            "type": "u64"
+          },
+          {
+            "name": "performanceFeeAmountDistributed",
+            "type": "u64"
+          },
+          {
+            "name": "redemptionFeeAmountDistributed",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "UpdateSwitchboardOraclePriceEvent",
+      "type": {
+        "fields": [
+          {
+            "name": "vaultNav",
+            "type": "i128"
+          },
+          {
+            "name": "vaultTvl",
+            "type": "u128"
+          },
+          {
+            "name": "sharesSupply",
+            "type": "u64"
+          }
+        ],
+        "kind": "struct"
+      }
+    },
+    {
+      "name": "StrategyType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "fields": [
+              {
+                "name": "account",
+                "type": "publicKey"
+              },
+              {
+                "name": "group",
+                "type": "publicKey"
+              },
+              {
+                "name": "bank",
+                "type": "publicKey"
+              },
+              {
+                "name": "bankLiquidityVault",
+                "type": "publicKey"
+              },
+              {
+                "name": "bankLiquidityVaultAuthority",
+                "type": "publicKey"
+              },
+              {
+                "name": "oracle",
+                "type": "publicKey"
+              }
+            ],
+            "name": "MarginfiSupply"
+          },
+          {
+            "fields": [
+              {
+                "name": "reserve",
+                "type": "publicKey"
+              },
+              {
+                "name": "reserveCollateralMint",
+                "type": "publicKey"
+              },
+              {
+                "name": "reserveLiquiditySupply",
+                "type": "publicKey"
+              },
+              {
+                "name": "reserveDestinationDepositCollateral",
+                "type": "publicKey"
+              },
+              {
+                "name": "reserveFarmState",
+                "type": "publicKey"
+              },
+              {
+                "name": "lendingMarket",
+                "type": "publicKey"
+              },
+              {
+                "name": "oracle",
+                "type": "publicKey"
+              },
+              {
+                "name": "scopePrices",
+                "type": "publicKey"
+              }
+            ],
+            "name": "KlendSupply"
+          },
+          {
+            "fields": [
+              {
+                "name": "reserve",
+                "type": "publicKey"
+              },
+              {
+                "name": "reserveCollateralMint",
+                "type": "publicKey"
+              },
+              {
+                "name": "reserveLiquiditySupply",
+                "type": "publicKey"
+              },
+              {
+                "name": "depositCollateralAta",
+                "type": "publicKey"
+              },
+              {
+                "name": "lendingMarket",
+                "type": "publicKey"
+              },
+              {
+                "name": "lendingMarketAuthority",
+                "type": "publicKey"
+              },
+              {
+                "name": "pythOracle",
+                "type": "publicKey"
+              },
+              {
+                "name": "switchboardOracle",
+                "type": "publicKey"
+              }
+            ],
+            "name": "SolendSupply"
+          },
+          {
+            "fields": [
+              {
+                "name": "group",
+                "type": "publicKey"
+              },
+              {
+                "name": "account",
+                "type": "publicKey"
+              },
+              {
+                "name": "bank",
+                "type": "publicKey"
+              },
+              {
+                "name": "vault",
+                "type": "publicKey"
+              },
+              {
+                "name": "pythOracle",
+                "type": "publicKey"
+              },
+              {
+                "name": "switchboardOracle",
+                "type": "publicKey"
+              }
+            ],
+            "name": "MangoSupply"
+          },
+          {
+            "fields": [
+              {
+                "name": "state",
+                "type": "publicKey"
+              },
+              {
+                "name": "signer",
+                "type": "publicKey"
+              },
+              {
+                "name": "spotMarket",
+                "type": "publicKey"
+              },
+              {
+                "name": "spotMarketVault",
+                "type": "publicKey"
+              },
+              {
+                "name": "perpMarket",
+                "type": "publicKey"
+              },
+              {
+                "name": "spotPythOracle",
+                "type": "publicKey"
+              },
+              {
+                "name": "perpPythOracle",
+                "type": "publicKey"
+              },
+              {
+                "name": "subAccountId",
+                "type": "u16"
+              },
+              {
+                "name": "marketIndex",
+                "type": "u16"
+              }
+            ],
+            "name": "DriftSupply"
+          },
+          {
+            "fields": [
+              {
+                "name": "state",
+                "type": "publicKey"
+              },
+              {
+                "name": "spotMarket",
+                "type": "publicKey"
+              },
+              {
+                "name": "spotMarketVault",
+                "type": "publicKey"
+              },
+              {
+                "name": "marketIndex",
+                "type": "u16"
+              }
+            ],
+            "name": "DriftInsuranceFund"
+          },
+          {
+            "fields": [
+              {
+                "name": "chest",
+                "type": "publicKey"
+              },
+              {
+                "name": "coin",
+                "type": "publicKey"
+              },
+              {
+                "name": "driftVault",
+                "type": "publicKey"
+              },
+              {
+                "name": "coinTokenAccount",
+                "type": "publicKey"
+              },
+              {
+                "name": "assetDestination",
+                "type": "publicKey"
+              },
+              {
+                "name": "redemptionRequest",
+                "type": {
+                  "option": "publicKey"
+                }
+              },
+              {
+                "name": "spotMarketIndex",
+                "type": "u16"
+              }
+            ],
+            "name": "Chest"
+          },
+          {
+            "fields": [
+              {
+                "name": "account",
+                "type": "publicKey"
+              },
+              {
+                "name": "group",
+                "type": "publicKey"
+              },
+              {
+                "name": "bank",
+                "type": "publicKey"
+              },
+              {
+                "name": "bankLiquidityVault",
+                "type": "publicKey"
+              },
+              {
+                "name": "bankLiquidityVaultAuthority",
+                "type": "publicKey"
+              },
+              {
+                "name": "oracle",
+                "type": "publicKey"
+              }
+            ],
+            "name": "ClendSupply"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StrategyTypeSelection",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "MarginfiSupply"
+          },
+          {
+            "name": "KlendSupply"
+          },
+          {
+            "name": "SolendSupply"
+          },
+          {
+            "name": "MangoSupply"
+          },
+          {
+            "name": "DriftSupply"
+          },
+          {
+            "name": "DriftInsuranceFund"
+          },
+          {
+            "name": "Chest"
+          },
+          {
+            "name": "ClendSupply"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CarrotEvent",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "fields": [
+              {
+                "defined": "IssueEvent"
+              }
+            ],
+            "name": "Issue"
+          },
+          {
+            "fields": [
+              {
+                "defined": "RedeemEvent"
+              }
+            ],
+            "name": "Redeem"
+          },
+          {
+            "fields": [
+              {
+                "defined": "StrategyDepositEvent"
+              }
+            ],
+            "name": "StrategyDeposit"
+          },
+          {
+            "fields": [
+              {
+                "defined": "StrategyWithdrawEvent"
+              }
+            ],
+            "name": "StrategyWithdraw"
+          },
+          {
+            "fields": [
+              {
+                "defined": "StrategyClaimEmissionsEvent"
+              }
+            ],
+            "name": "StrategyClaimEmissions"
+          },
+          {
+            "fields": [
+              {
+                "defined": "DistributeVaultFeesEvent"
+              }
+            ],
+            "name": "DistributeVaultFees"
+          },
+          {
+            "fields": [
+              {
+                "defined": "UpdateSwitchboardOraclePriceEvent"
+              }
+            ],
+            "name": "UpdateSwitchboardOraclePrice"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RoundingMode",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "RoundUp"
+          },
+          {
+            "name": "RoundDown"
+          },
+          {
+            "name": "Avg"
+          }
+        ]
+      }
+    }
+  ],
+  "version": "0.1.0"
+}
